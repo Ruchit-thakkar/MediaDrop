@@ -39,11 +39,10 @@ export default function Navbar({ theme, onToggleTheme }) {
 
             <div className="flex items-center gap-1.5">
               {/* Main Text with a subtle premium tracking and gradient mask on hover */}
-              <span className="text-xl font-bold tracking-tight text-white bg-clip-text group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-white group-hover:via-slate-200 group-hover:to-slate-400 transition-all duration-300 ease-out">
+              {/* Main Text with a subtle premium tracking and gradient mask on hover */}
+              <span className="text-xl font-bold tracking-tight text-zinc-900 dark:text-white bg-clip-text group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-zinc-900 group-hover:via-zinc-700 group-hover:to-zinc-500 dark:group-hover:from-white dark:group-hover:via-slate-200 dark:group-hover:to-slate-400 transition-all duration-300 ease-out">
                 MediaDrop
               </span>
-
-             
             </div>
           </div>
         </div>
@@ -52,25 +51,25 @@ export default function Navbar({ theme, onToggleTheme }) {
         <div className="hidden md:flex items-center gap-8">
           <a
             href="#"
-            className="text-xs font-semibold text-white/90 hover:text-white transition-colors"
+            className="text-xs font-semibold text-zinc-800 dark:text-white/90 hover:text-zinc-950 dark:hover:text-white transition-colors"
           >
             Home
           </a>
           <a
             href="#features"
-            className="text-xs font-semibold text-zinc-400 hover:text-white transition-colors"
+            className="text-xs font-semibold text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors"
           >
             Features
           </a>
           <a
             href="#platforms"
-            className="text-xs font-semibold text-zinc-400 hover:text-white transition-colors"
+            className="text-xs font-semibold text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors"
           >
             Supported Platforms
           </a>
           <a
             href="#faq"
-            className="text-xs font-semibold text-zinc-400 hover:text-white transition-colors"
+            className="text-xs font-semibold text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors"
           >
             FAQ
           </a>
@@ -82,7 +81,7 @@ export default function Navbar({ theme, onToggleTheme }) {
           <button
             onClick={onToggleTheme}
             title={theme === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode"}
-            className="w-9 h-9 rounded-lg hover:bg-white/5 border border-white/5 flex items-center justify-center transition-colors text-zinc-400 hover:text-white cursor-pointer"
+            className="w-9 h-9 rounded-lg hover:bg-black/5 dark:hover:bg-white/5 border border-black/5 dark:border-white/5 flex items-center justify-center transition-colors text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white cursor-pointer"
           >
             <span className="material-symbols-outlined text-[19px]">
               {theme === "dark" ? "light_mode" : "dark_mode"}
@@ -95,7 +94,7 @@ export default function Navbar({ theme, onToggleTheme }) {
             target="_blank"
             rel="noopener noreferrer"
             title="GitHub Repository"
-            className="w-9 h-9 rounded-lg hover:bg-white/5 border border-white/5 flex items-center justify-center transition-colors text-zinc-400 hover:text-white"
+            className="w-9 h-9 rounded-lg hover:bg-black/5 dark:hover:bg-white/5 border border-black/5 dark:border-white/5 flex items-center justify-center transition-colors text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white"
           >
             <span className="material-symbols-outlined text-[19px]">code</span>
           </a>

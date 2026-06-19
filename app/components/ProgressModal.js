@@ -124,7 +124,7 @@ export default function ProgressModal({ preparingDownload, metadata }) {
         <div className="relative flex items-center justify-center w-16 h-16 shrink-0">
           <svg className="w-full h-full transform -rotate-90">
             <circle
-              className="text-zinc-800/80"
+              className="text-zinc-200/80 dark:text-zinc-800/80"
               strokeWidth={stroke}
               stroke="currentColor"
               fill="transparent"
@@ -145,7 +145,7 @@ export default function ProgressModal({ preparingDownload, metadata }) {
               cy={32}
             />
           </svg>
-          <div className="absolute text-xs font-extrabold text-white">
+          <div className="absolute text-xs font-extrabold text-zinc-900 dark:text-white">
             {isSuccess ? (
               <span className="material-symbols-outlined text-emerald-400 text-lg font-bold">check</span>
             ) : (
@@ -156,7 +156,7 @@ export default function ProgressModal({ preparingDownload, metadata }) {
 
         {/* Right Column: Title, Filename, Waveform, Speed */}
         <div className="flex-grow min-w-0">
-          <h4 className="text-white font-extrabold text-sm leading-none">
+          <h4 className="text-zinc-900 dark:text-white font-extrabold text-sm leading-none">
             {isSuccess ? "Finished Download" : "Downloading..."}
           </h4>
           <p className="text-[10px] text-zinc-400 font-bold truncate mt-1.5" title={filename}>

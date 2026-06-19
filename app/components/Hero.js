@@ -7,9 +7,9 @@ export default function Hero({ url, setUrl, isLoading, handleExtract }) {
   const platforms = [
     { name: "YouTube", hoverColor: "hover:border-red-600 hover:text-red-500 hover:bg-red-500/5" },
     { name: "Instagram", hoverColor: "hover:border-pink-600 hover:text-pink-500 hover:bg-pink-500/5" },
-    { name: "TikTok", hoverColor: "hover:border-white hover:text-white hover:bg-white/5" },
+    { name: "TikTok", hoverColor: "hover:border-zinc-900 dark:hover:border-white hover:text-zinc-900 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5" },
     { name: "Facebook", hoverColor: "hover:border-blue-600 hover:text-blue-500 hover:bg-blue-500/5" },
-    { name: "X", hoverColor: "hover:border-zinc-400 hover:text-white hover:bg-white/5" },
+    { name: "X", hoverColor: "hover:border-zinc-400 dark:hover:border-zinc-300 hover:text-zinc-900 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5" },
     { name: "Pinterest", hoverColor: "hover:border-red-500 hover:text-red-500 hover:bg-red-500/5" },
   ];
 
@@ -22,7 +22,7 @@ export default function Hero({ url, setUrl, isLoading, handleExtract }) {
       </div>
 
       {/* Main Headline */}
-      <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-white mb-4 leading-[1.08] max-w-3xl">
+      <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-zinc-900 dark:text-white mb-4 leading-[1.08] max-w-3xl">
         Download Videos, Reels, <br className="hidden sm:inline" />
         Photos & MP3 <span className="text-gradient">Instantly</span>
       </h1>

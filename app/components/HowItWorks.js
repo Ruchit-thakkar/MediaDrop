@@ -28,7 +28,7 @@ export default function HowItWorks() {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full bg-purple-500/5 blur-[120px] pointer-events-none"></div>
 
       <div className="text-center mb-16 relative">
-        <h2 className="text-3xl font-extrabold tracking-tight text-white mb-3">
+        <h2 className="text-3xl font-extrabold tracking-tight text-zinc-900 dark:text-white mb-3">
           Simple Extraction
         </h2>
         <p className="text-zinc-400 max-w-lg mx-auto text-sm font-medium">
@@ -46,13 +46,13 @@ export default function HowItWorks() {
               </span>
 
               {/* Step number badge */}
-              <div className="absolute -top-2.5 -right-2.5 w-7 h-7 bg-white text-black font-extrabold rounded-full text-xs flex items-center justify-center shadow-lg border border-black/5">
+              <div className="absolute -top-2.5 -right-2.5 w-7 h-7 primary-gradient text-white font-extrabold rounded-full text-xs flex items-center justify-center shadow-lg border border-purple-500/20">
                 {step.num}
               </div>
             </div>
 
             {/* Step Title & description */}
-            <h3 className="text-white font-bold mb-2.5 text-base tracking-tight group-hover:text-purple-400 transition-colors">
+            <h3 className="text-zinc-900 dark:text-white font-bold mb-2.5 text-base tracking-tight group-hover:text-purple-400 transition-colors">
               {step.title}
             </h3>
             <p className="text-zinc-400 text-xs leading-relaxed max-w-[240px] mx-auto font-medium">

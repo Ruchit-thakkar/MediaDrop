@@ -27,26 +27,31 @@ export default function Home() {
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme") || "dark";
     setTheme(savedTheme);
-    if (savedTheme === "dark") {
-      document.documentElement.classList.add("dark");
-      document.documentElement.classList.remove("light");
-    } else {
-      document.documentElement.classList.add("light");
-      document.documentElement.classList.remove("dark");
-    }
   }, []);
 
-  const handleToggleTheme = () => {
-    const nextTheme = theme === "dark" ? "light" : "dark";
-    setTheme(nextTheme);
-    localStorage.setItem("theme", nextTheme);
-    if (nextTheme === "dark") {
+  useEffect(() => {
+    if (theme === "dark") {
       document.documentElement.classList.add("dark");
       document.documentElement.classList.remove("light");
     } else {
       document.documentElement.classList.add("light");
       document.documentElement.classList.remove("dark");
     }
+    localStorage.setItem("theme", theme);
+
+    // Dynamic favicon updates to match current theme mode
+    const faviconUrl = theme === "light"
+      ? "https://ik.imagekit.io/devnext/MediaDroplight.png"
+      : "https://ik.imagekit.io/devnext/MediaDropDark.png";
+
+    const links = document.querySelectorAll("link[rel*='icon']");
+    links.forEach(link => {
+      link.href = faviconUrl;
+    });
+  }, [theme]);
+
+  const handleToggleTheme = () => {
+    setTheme(prev => prev === "dark" ? "light" : "dark");
   };
   const [preparingDownload, setPreparingDownload] = useState(null);
   const [downloadError, setDownloadError] = useState("");
@@ -171,7 +176,7 @@ export default function Home() {
         {/* Error Alert */}
         {error && (
           <section className="max-w-2xl mx-auto px-6 mb-8 animate-fade-in">
-            <div className="p-4 rounded-2xl bg-red-950/30 border border-red-500/20 text-red-400 flex items-start gap-3 shadow-lg">
+            <div className="p-4 rounded-2xl bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-500/20 text-red-600 dark:text-red-400 flex items-start gap-3 shadow-lg">
               <span className="material-symbols-outlined text-xl shrink-0 mt-0.5">error</span>
               <div className="text-xs font-semibold">
                 <span className="font-extrabold uppercase">Extraction Failed: </span>
@@ -184,7 +189,7 @@ export default function Home() {
         {/* Download Error Alert */}
         {downloadError && (
           <section className="max-w-2xl mx-auto px-6 mb-8 animate-fade-in">
-            <div className="p-4 rounded-2xl bg-red-950/30 border border-red-500/20 text-red-400 flex items-start gap-3 shadow-lg">
+            <div className="p-4 rounded-2xl bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-500/20 text-red-600 dark:text-red-400 flex items-start gap-3 shadow-lg">
               <span className="material-symbols-outlined text-xl shrink-0 mt-0.5">warning</span>
               <div className="text-xs font-semibold">
                 <span className="font-extrabold uppercase">Download Failed: </span>
@@ -223,7 +228,7 @@ export default function Home() {
 
                   {/* Right Column: Available Formats Card (single vertical stack container) */}
                   <div className="lg:col-span-7 premium-card rounded-3xl p-6 border border-white/5 flex flex-col justify-start">
-                    <h3 className="text-white font-extrabold text-sm tracking-wide uppercase mb-4 select-none">
+                    <h3 className="text-zinc-900 dark:text-white font-extrabold text-sm tracking-wide uppercase mb-4 select-none">
                       Available Formats
                     </h3>
                     <div className="flex flex-col gap-3">

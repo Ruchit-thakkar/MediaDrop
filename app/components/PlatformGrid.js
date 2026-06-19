@@ -19,7 +19,7 @@ export default function PlatformGrid() {
     {
       name: "TikTok",
       types: ["HD Videos", "Original Audios", "Slideshows"],
-      color: "group-hover:text-zinc-100",
+      color: "group-hover:text-zinc-800 dark:group-hover:text-zinc-100",
       bgHover: "hover:border-zinc-400/20 hover:shadow-[0_0_30px_rgba(255,255,255,0.06)]",
     },
     {
@@ -31,7 +31,7 @@ export default function PlatformGrid() {
     {
       name: "X / Twitter",
       types: ["Tweets Videos", "Post Photos", "GIFs"],
-      color: "group-hover:text-zinc-200",
+      color: "group-hover:text-zinc-800 dark:group-hover:text-zinc-200",
       bgHover: "hover:border-zinc-500/20 hover:shadow-[0_0_30px_rgba(156,163,175,0.08)]",
     },
     {
@@ -45,7 +45,7 @@ export default function PlatformGrid() {
   return (
     <section id="platforms" className="w-full max-w-6xl mx-auto px-6 py-20 border-t border-white/5">
       <div className="text-center mb-16">
-        <h2 className="text-3xl font-extrabold tracking-tight text-white mb-3">
+        <h2 className="text-3xl font-extrabold tracking-tight text-zinc-900 dark:text-white mb-3">
           Seamless Platform Support
         </h2>
         <p className="text-zinc-400 max-w-lg mx-auto text-sm font-medium">
@@ -66,7 +66,7 @@ export default function PlatformGrid() {
 
             {/* Content Details */}
             <div>
-              <h3 className={`text-base font-bold text-white transition-colors duration-300 ${plat.color}`}>
+              <h3 className={`text-base font-bold text-zinc-900 dark:text-white transition-colors duration-300 ${plat.color}`}>
                 {plat.name}
               </h3>
 

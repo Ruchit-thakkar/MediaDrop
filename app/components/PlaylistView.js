@@ -21,7 +21,7 @@ export default function PlaylistView({ metadata, preparingDownload, onDownload, 
             <span className="text-[10px] font-bold uppercase tracking-wider text-zinc-500 font-mono">
               Album Contents
             </span>
-            <span className="px-2 py-0.5 rounded-lg border border-purple-500/20 bg-purple-500/10 text-purple-300 text-[10px] font-bold tracking-wider font-mono">
+            <span className="px-2 py-0.5 rounded-lg border border-purple-500/20 bg-purple-500/10 text-purple-600 dark:text-purple-300 text-[10px] font-bold tracking-wider font-mono">
               {metadata.entries?.length || 0} ITEMS
             </span>
           </div>
@@ -49,7 +49,7 @@ export default function PlaylistView({ metadata, preparingDownload, onDownload, 
                     <span className="text-[9px] font-bold uppercase tracking-wider text-zinc-500 font-mono">
                       Item #{entry.index}
                     </span>
-                    <h4 className="text-white font-bold text-xs line-clamp-1 leading-tight mt-0.5" title={entry.title}>
+                    <h4 className="text-zinc-900 dark:text-white font-bold text-xs line-clamp-1 leading-tight mt-0.5" title={entry.title}>
                       {entry.title}
                     </h4>
                   </div>
@@ -62,14 +62,14 @@ export default function PlaylistView({ metadata, preparingDownload, onDownload, 
                     const isThisDownloading = preparingDownload === dlKey;
                     const isAnyDownloading = !!preparingDownload;
 
-                    let btnColor = "hover:bg-purple-500/10 border-purple-500/20 text-purple-400";
+                    let btnColor = "hover:bg-purple-500/10 border-purple-500/20 text-purple-600 dark:text-purple-400";
                     let icon = "download";
 
                     if (format.type === "audio") {
-                      btnColor = "hover:bg-amber-500/10 border-amber-500/20 text-amber-400";
+                      btnColor = "hover:bg-amber-500/10 border-amber-500/20 text-amber-600 dark:text-amber-400";
                       icon = "music_note";
                     } else if (format.type === "image") {
-                      btnColor = "hover:bg-blue-500/10 border-blue-500/20 text-blue-400";
+                      btnColor = "hover:bg-blue-500/10 border-blue-500/20 text-blue-600 dark:text-blue-400";
                       icon = "image";
                     }
 

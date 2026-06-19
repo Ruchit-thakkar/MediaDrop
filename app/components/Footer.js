@@ -20,11 +20,9 @@ export default function Footer({ theme }) {
 
                 <div className="flex items-center gap-1.5">
                   {/* Main Text with a subtle premium tracking and gradient mask on hover */}
-                  <span className="text-xl font-bold tracking-tight text-white bg-clip-text group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-white group-hover:via-slate-200 group-hover:to-slate-400 transition-all duration-300 ease-out">
+                  <span className="text-xl font-bold tracking-tight text-zinc-900 dark:text-white bg-clip-text group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-zinc-900 group-hover:via-zinc-700 group-hover:to-zinc-500 dark:group-hover:from-white dark:group-hover:via-slate-200 dark:group-hover:to-slate-400 transition-all duration-300 ease-out">
                     MediaDrop
                   </span>
-
-
                 </div>
               </div>
             </div>
@@ -35,7 +33,7 @@ export default function Footer({ theme }) {
 
           {/* Quick Links Column */}
           <div className="md:col-span-3">
-            <h4 className="text-white text-[10px] font-bold uppercase tracking-wider mb-4">Product</h4>
+            <h4 className="text-zinc-900 dark:text-white text-[10px] font-bold uppercase tracking-wider mb-4">Product</h4>
             <ul className="space-y-2 text-xs font-medium text-zinc-400">
               <li>
                 <a href="#" className="hover:text-purple-400 transition-colors">
@@ -57,7 +55,7 @@ export default function Footer({ theme }) {
 
           {/* Resources Column */}
           <div className="md:col-span-3">
-            <h4 className="text-white text-[10px] font-bold uppercase tracking-wider mb-4">Legal</h4>
+            <h4 className="text-zinc-900 dark:text-white text-[10px] font-bold uppercase tracking-wider mb-4">Legal</h4>
             <ul className="space-y-2 text-xs font-medium text-zinc-400">
               <li>
                 <a href="#" className="hover:text-purple-400 transition-colors">
@@ -79,12 +77,12 @@ export default function Footer({ theme }) {
 
           {/* Github Column */}
           <div className="md:col-span-2">
-            <h4 className="text-white text-[10px] font-bold uppercase tracking-wider mb-4">Community</h4>
+            <h4 className="text-zinc-900 dark:text-white text-[10px] font-bold uppercase tracking-wider mb-4">Community</h4>
             <a
               href="https://github.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-xs font-semibold text-zinc-400 hover:text-white transition-colors"
+              className="inline-flex items-center gap-1.5 text-xs font-semibold text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors"
             >
               <span className="material-symbols-outlined text-[15px]">code</span>
               <span>GitHub</span>

@@ -34,7 +34,7 @@ export default function FAQSection() {
 
   return (
     <section id="faq" className="w-full max-w-2xl mx-auto px-6 py-20 border-t border-white/5">
-      <h2 className="text-3xl font-extrabold tracking-tight text-center text-white mb-12">
+      <h2 className="text-3xl font-extrabold tracking-tight text-center text-zinc-900 dark:text-white mb-12">
         Frequently Asked Questions
       </h2>
 
@@ -51,7 +51,7 @@ export default function FAQSection() {
               <button
                 type="button"
                 onClick={() => handleToggle(idx)}
-                className="w-full p-5 text-left flex justify-between items-center transition-colors text-white font-semibold text-sm cursor-pointer select-none"
+                className="w-full p-5 text-left flex justify-between items-center transition-colors text-zinc-900 dark:text-white font-semibold text-sm cursor-pointer select-none"
               >
                 <span>{faq.q}</span>
                 <span

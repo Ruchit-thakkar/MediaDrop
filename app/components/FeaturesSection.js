@@ -43,7 +43,7 @@ export default function FeaturesSection() {
   return (
     <section id="features" className="w-full max-w-6xl mx-auto px-6 py-20 border-t border-white/5">
       <div className="text-center mb-16">
-        <h2 className="text-3xl font-extrabold tracking-tight text-white mb-3">
+        <h2 className="text-3xl font-extrabold tracking-tight text-zinc-900 dark:text-white mb-3">
           Built for Performance
         </h2>
         <p className="text-zinc-400 max-w-lg mx-auto text-sm font-medium">
@@ -65,7 +65,7 @@ export default function FeaturesSection() {
             </div>
 
             {/* Title & Desc */}
-            <h3 className="text-lg font-bold text-white mb-2 tracking-tight group-hover:text-purple-400 transition-colors">
+            <h3 className="text-lg font-bold text-zinc-900 dark:text-white mb-2 tracking-tight group-hover:text-purple-400 transition-colors">
               {feat.title}
             </h3>
             <p className="text-zinc-400 text-xs leading-relaxed font-medium">
