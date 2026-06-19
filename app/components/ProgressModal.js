@@ -115,7 +115,7 @@ export default function ProgressModal({ preparingDownload, metadata }) {
   const strokeDashoffset = circumference - (progress / 100) * circumference;
 
   return (
-    <div className="fixed bottom-6 right-6 z-[100] w-80 max-w-sm premium-card rounded-2xl p-4 border border-purple-500/20 shadow-[0_10px_40px_-10px_rgba(124,58,237,0.3)] animate-slide-in select-none">
+    <div className="fixed bottom-4 right-4 left-4 sm:left-auto sm:right-6 sm:bottom-6 sm:w-80 max-w-sm z-[100] premium-card rounded-2xl p-4 border border-purple-500/20 shadow-[0_10px_40px_-10px_rgba(124,58,237,0.3)] animate-slide-in select-none">
       {/* Glow backdrop inside popup */}
       <div className="absolute top-[-50%] left-[-50%] w-[200%] h-[200%] rounded-full bg-radial from-purple-500/5 to-transparent pointer-events-none z-[-1]"></div>
 

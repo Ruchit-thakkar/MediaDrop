@@ -153,7 +153,7 @@ export default function Home() {
   const isMock = !metadata;
 
   return (
-    <div className="bg-background text-on-background min-h-screen flex flex-col relative selection:bg-purple-500/30">
+    <div className="bg-background text-on-background min-h-screen flex flex-col relative overflow-x-hidden selection:bg-purple-500/30">
       
       {/* Background Ambient Glows */}
       <div className="absolute top-[-10%] left-[-10%] w-[55vw] h-[55vw] rounded-full ambient-glow-1 blur-[130px] pointer-events-none z-[-1]"></div>

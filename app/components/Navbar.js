@@ -33,17 +33,14 @@ export default function Navbar({ theme, onToggleTheme }) {
             alt="MediaDrop Logo"
             className="h-6.5 sm:h-7 w-auto object-contain group-hover:scale-[1.01] transition-transform duration-300"
           />
-          <div className="flex items-center gap-2.5 group cursor-pointer select-none">
-            {/* Left Accent Bar: Gives it an application feel rather than just a website */}
-            <div className="h-5 w-[3px] bg-gradient-to-b from-blue-500 via-purple-500 to-pink-500 rounded-full opacity-40 group-hover:opacity-100 transition-opacity duration-300" />
-
-            <div className="flex items-center gap-1.5">
-              {/* Main Text with a subtle premium tracking and gradient mask on hover */}
-              {/* Main Text with a subtle premium tracking and gradient mask on hover */}
-              <span className="text-xl font-bold tracking-tight text-zinc-900 dark:text-white bg-clip-text group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-zinc-900 group-hover:via-zinc-700 group-hover:to-zinc-500 dark:group-hover:from-white dark:group-hover:via-slate-200 dark:group-hover:to-slate-400 transition-all duration-300 ease-out">
-                MediaDrop
-              </span>
-            </div>
+          {/* Left Accent Bar: Gives it an application feel rather than just a website */}
+          <div className="h-5 w-[3px] bg-gradient-to-b from-blue-500 via-purple-500 to-pink-500 rounded-full opacity-40 group-hover:opacity-100 transition-opacity duration-300" />
+          
+          <div className="flex items-center gap-1.5">
+            {/* Main Text with a subtle premium tracking and gradient mask on hover */}
+            <span className="text-xl font-bold tracking-tight text-zinc-900 dark:text-white bg-clip-text group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-zinc-900 group-hover:via-zinc-700 group-hover:to-zinc-500 dark:group-hover:from-white dark:group-hover:via-slate-200 dark:group-hover:to-slate-400 transition-all duration-300 ease-out">
+              MediaDrop
+            </span>
           </div>
         </div>
 

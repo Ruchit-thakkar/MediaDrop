@@ -139,12 +139,12 @@ export default function MetadataCard({ metadata, copied, onCopyText }) {
         {/* Text Details & Title row */}
         <div className="mt-5 px-1">
           <div className="flex items-start justify-between gap-3">
-            <h3 className="text-white font-extrabold text-lg leading-tight tracking-tight flex-grow" title={metadata.title}>
+            <h3 className="text-zinc-900 dark:text-white font-extrabold text-lg leading-tight tracking-tight flex-grow" title={metadata.title}>
               {metadata.title}
             </h3>
 
             {/* Type badge */}
-            <span className="px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest bg-purple-500/20 text-purple-300 border border-purple-500/10 rounded-lg shrink-0">
+            <span className="px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest bg-purple-500/20 text-purple-600 dark:text-purple-300 border border-purple-500/10 rounded-lg shrink-0">
               {contentType}
             </span>
           </div>
@@ -161,7 +161,7 @@ export default function MetadataCard({ metadata, copied, onCopyText }) {
                   referrerPolicy="no-referrer"
                 />
               ) : (
-                <div className="w-6 h-6 rounded-full bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-[10px] font-extrabold text-purple-400 uppercase select-none shrink-0 shadow-inner">
+                <div className="w-6 h-6 rounded-full bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-[10px] font-extrabold text-purple-600 dark:text-purple-400 uppercase select-none shrink-0 shadow-inner">
                   {metadata.uploader ? metadata.uploader.charAt(0) : "C"}
                 </div>
               )}
@@ -183,8 +183,8 @@ export default function MetadataCard({ metadata, copied, onCopyText }) {
       <div className="grid grid-cols-3 gap-3 mt-6">
         {/* Duration Sub-card */}
         <div className="bg-[#09090B] border border-white/5 p-3 rounded-2xl flex flex-col items-center justify-center text-center">
-          <div className="flex items-center gap-1 text-white font-extrabold text-xs">
-            <span className="material-symbols-outlined text-[14px] text-purple-400">schedule</span>
+          <div className="flex items-center gap-1 text-zinc-900 dark:text-white font-extrabold text-xs">
+            <span className="material-symbols-outlined text-[14px] text-purple-500 dark:text-purple-400">schedule</span>
             <span>{metadata.duration || "00:42"}</span>
           </div>
           <span className="text-[9px] text-zinc-500 font-bold uppercase tracking-wider mt-1.5">
@@ -194,8 +194,8 @@ export default function MetadataCard({ metadata, copied, onCopyText }) {
 
         {/* Visibility Sub-card */}
         <div className="bg-[#09090B] border border-white/5 p-3 rounded-2xl flex flex-col items-center justify-center text-center">
-          <div className="flex items-center gap-1 text-white font-extrabold text-xs">
-            <span className="material-symbols-outlined text-[14px] text-purple-400">language</span>
+          <div className="flex items-center gap-1 text-zinc-900 dark:text-white font-extrabold text-xs">
+            <span className="material-symbols-outlined text-[14px] text-purple-500 dark:text-purple-400">language</span>
             <span>Public</span>
           </div>
           <span className="text-[9px] text-zinc-500 font-bold uppercase tracking-wider mt-1.5">
@@ -205,8 +205,8 @@ export default function MetadataCard({ metadata, copied, onCopyText }) {
 
         {/* Type Sub-card */}
         <div className="bg-[#09090B] border border-white/5 p-3 rounded-2xl flex flex-col items-center justify-center text-center">
-          <div className="flex items-center gap-1 text-white font-extrabold text-xs">
-            <span className="material-symbols-outlined text-[14px] text-purple-400">movie</span>
+          <div className="flex items-center gap-1 text-zinc-900 dark:text-white font-extrabold text-xs">
+            <span className="material-symbols-outlined text-[14px] text-purple-500 dark:text-purple-400">movie</span>
             <span>{contentType}</span>
           </div>
           <span className="text-[9px] text-zinc-500 font-bold uppercase tracking-wider mt-1.5">
@@ -224,7 +224,7 @@ export default function MetadataCard({ metadata, copied, onCopyText }) {
             </span>
             <button
               onClick={() => onCopyText(metadata.description)}
-              className="text-[10px] font-bold text-purple-400 hover:text-white cursor-pointer flex items-center gap-1 transition-colors select-none"
+              className="text-[10px] font-bold text-purple-600 dark:text-purple-400 hover:text-zinc-950 dark:hover:text-white cursor-pointer flex items-center gap-1 transition-colors select-none"
               title="Copy caption text"
             >
               <span className="material-symbols-outlined text-[12px]">{copied ? "check" : "content_copy"}</span>

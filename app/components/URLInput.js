@@ -47,16 +47,16 @@ export default function URLInput({ url, setUrl, isLoading, handleExtract }) {
       <button
         type="submit"
         disabled={isLoading || !url.trim()}
-        className="primary-gradient h-10 px-6 rounded-xl text-white font-bold text-xs uppercase tracking-wider active:scale-[0.98] hover:brightness-110 disabled:opacity-50 disabled:scale-100 transition-all flex items-center gap-2 shrink-0 cursor-pointer shadow-lg shadow-purple-900/20"
+        className="primary-gradient h-10 px-4 sm:px-6 rounded-xl text-white font-bold text-xs uppercase tracking-wider active:scale-[0.98] hover:brightness-110 disabled:opacity-50 disabled:scale-100 transition-all flex items-center gap-2 shrink-0 cursor-pointer shadow-lg shadow-purple-900/20"
       >
         {isLoading ? (
           <>
             <span className="animate-spin h-3.5 w-3.5 border-2 border-white border-t-transparent rounded-full"></span>
-            <span>Fetching...</span>
+            <span className="hidden sm:inline">Fetching...</span>
           </>
         ) : (
           <>
-            <span>Download</span>
+            <span className="hidden sm:inline">Download</span>
             <span className="material-symbols-outlined text-sm font-bold">arrow_forward</span>
           </>
         )}
