@@ -1,15 +1,16 @@
 "use client";
 
 import URLInput from "./URLInput";
+import { getBrandLogo } from "./BrandLogos";
 
 export default function Hero({ url, setUrl, isLoading, handleExtract }) {
   const platforms = [
-    { name: "YouTube", icon: "play_circle", hoverColor: "hover:border-red-600 hover:text-red-500 hover:bg-red-500/5" },
-    { name: "Instagram", icon: "photo_camera", hoverColor: "hover:border-pink-600 hover:text-pink-500 hover:bg-pink-500/5" },
-    { name: "TikTok", icon: "music_video", hoverColor: "hover:border-white hover:text-white hover:bg-white/5" },
-    { name: "Facebook", icon: "face_nod", hoverColor: "hover:border-blue-600 hover:text-blue-500 hover:bg-blue-500/5" },
-    { name: "X", icon: "close", hoverColor: "hover:border-zinc-400 hover:text-white hover:bg-white/5" },
-    { name: "Pinterest", icon: "push_pin", hoverColor: "hover:border-red-500 hover:text-red-500 hover:bg-red-500/5" },
+    { name: "YouTube", hoverColor: "hover:border-red-600 hover:text-red-500 hover:bg-red-500/5" },
+    { name: "Instagram", hoverColor: "hover:border-pink-600 hover:text-pink-500 hover:bg-pink-500/5" },
+    { name: "TikTok", hoverColor: "hover:border-white hover:text-white hover:bg-white/5" },
+    { name: "Facebook", hoverColor: "hover:border-blue-600 hover:text-blue-500 hover:bg-blue-500/5" },
+    { name: "X", hoverColor: "hover:border-zinc-400 hover:text-white hover:bg-white/5" },
+    { name: "Pinterest", hoverColor: "hover:border-red-500 hover:text-red-500 hover:bg-red-500/5" },
   ];
 
   return (
@@ -55,9 +56,9 @@ export default function Hero({ url, setUrl, isLoading, handleExtract }) {
         {platforms.map((plat) => (
           <div
             key={plat.name}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-white/5 bg-[#111113]/40 text-xs font-semibold text-zinc-400 transition-all duration-300 ${plat.hoverColor}`}
+            className={`flex items-center gap-2 px-3 py-1.5 rounded-xl border border-white/5 bg-[#111113]/40 text-xs font-semibold text-zinc-400 transition-all duration-300 ${plat.hoverColor}`}
           >
-            <span className="material-symbols-outlined text-[15px]">{plat.icon}</span>
+            {getBrandLogo(plat.name, "w-4 h-4")}
             <span>{plat.name}</span>
           </div>
         ))}

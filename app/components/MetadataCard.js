@@ -1,11 +1,17 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { getBrandLogo } from "./BrandLogos";
 
 export default function MetadataCard({ metadata, copied, onCopyText }) {
   const videoRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [avatarError, setAvatarError] = useState(false);
+
+  // Reset avatar error state when metadata changes
+  useEffect(() => {
+    setAvatarError(false);
+  }, [metadata]);
 
   const getPlatformName = (platform) => {
     const plat = platform ? platform.toLowerCase() : "";
@@ -20,12 +26,10 @@ export default function MetadataCard({ metadata, copied, onCopyText }) {
 
   const handlePlayPause = () => {
     if (!videoRef.current) return;
-    if (isPlaying) {
-      videoRef.current.pause();
-      setIsPlaying(false);
-    } else {
+    if (videoRef.current.paused) {
       videoRef.current.play().catch((err) => console.log("Video play failed:", err));
-      setIsPlaying(true);
+    } else {
+      videoRef.current.pause();
     }
   };
 
@@ -41,9 +45,42 @@ export default function MetadataCard({ metadata, copied, onCopyText }) {
 
   const contentType = getContentType();
 
-  // For the video player source, use a high-quality free video if mock, otherwise check if we have a source URL
-  // Sunset video URL to match the "Breathtaking Sunset" theme in the mockup
-  const videoSrc = "https://assets.mixkit.co/videos/preview/mixkit-sunset-beaver-lake-43024-large.mp4";
+  // For the video player source, use a highly compatible Vercel test video
+  const videoSrc = "https://assets.vercel.com/video/upload/v1538361091/repositories/next.js/next-js.mp4";
+
+  // Reload the video elements when metadata or source changes to cleanly swap posters and reset state
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.load();
+    }
+  }, [metadata, videoSrc]);
+
+  // Construct a public profile avatar URL using unavatar.io service
+  const getAvatarUrl = () => {
+    const plat = metadata.platform ? metadata.platform.toLowerCase() : "";
+    const uploader = metadata.uploader_id || metadata.uploader;
+    if (!uploader || uploader.toLowerCase() === "unknown") return null;
+
+    // Clean uploader handle (remove spaces, keep @ if present for youtube)
+    const cleanUploader = uploader.replace(/\s+/g, "");
+
+    if (plat.includes("youtube")) {
+      return `https://unavatar.io/youtube/${cleanUploader}`;
+    }
+    if (plat.includes("twitter") || plat === "x") {
+      return `https://unavatar.io/twitter/${cleanUploader.replace("@", "")}`;
+    }
+    if (plat.includes("instagram")) {
+      return `https://unavatar.io/instagram/${cleanUploader.replace("@", "")}`;
+    }
+    if (plat.includes("facebook")) {
+      return `https://unavatar.io/facebook/${cleanUploader}`;
+    }
+    if (plat.includes("tiktok")) {
+      return `https://unavatar.io/tiktok/${cleanUploader.replace("@", "")}`;
+    }
+    return null;
+  };
 
   return (
     <div className="premium-card rounded-3xl p-5 overflow-hidden flex flex-col justify-between w-full hover:border-white/10 transition-colors">
@@ -57,12 +94,15 @@ export default function MetadataCard({ metadata, copied, onCopyText }) {
             loop
             muted
             playsInline
+            crossOrigin="anonymous"
             onClick={handlePlayPause}
+            onPlay={() => setIsPlaying(true)}
+            onPause={() => setIsPlaying(false)}
             className="w-full h-full object-cover cursor-pointer"
           />
-          
+
           {/* Overlay controls indicator */}
-          <div 
+          <div
             onClick={handlePlayPause}
             className="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
           >
@@ -95,7 +135,7 @@ export default function MetadataCard({ metadata, copied, onCopyText }) {
             <h3 className="text-white font-extrabold text-lg leading-tight tracking-tight flex-grow" title={metadata.title}>
               {metadata.title}
             </h3>
-            
+
             {/* Type badge */}
             <span className="px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest bg-purple-500/20 text-purple-300 border border-purple-500/10 rounded-lg shrink-0">
               {contentType}
@@ -105,11 +145,19 @@ export default function MetadataCard({ metadata, copied, onCopyText }) {
           {/* Creator & Platform row */}
           <div className="flex items-center justify-between mt-4">
             <div className="flex items-center gap-2">
-              <img
-                src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=80&q=80"
-                alt="Creator Avatar"
-                className="w-6 h-6 rounded-full border border-white/10 object-cover"
-              />
+              {!avatarError && getAvatarUrl() ? (
+                <img
+                  src={getAvatarUrl()}
+                  alt="Creator Avatar"
+                  onError={() => setAvatarError(true)}
+                  className="w-6 h-6 rounded-full border border-white/10 object-cover shrink-0"
+                  referrerPolicy="no-referrer"
+                />
+              ) : (
+                <div className="w-6 h-6 rounded-full bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-[10px] font-extrabold text-purple-400 uppercase select-none shrink-0 shadow-inner">
+                  {metadata.uploader ? metadata.uploader.charAt(0) : "C"}
+                </div>
+              )}
               <span className="text-xs text-zinc-400 font-bold tracking-tight">
                 {metadata.uploader ? (metadata.uploader.startsWith("@") ? metadata.uploader : `@${metadata.uploader.toLowerCase()}`) : "@creator"}
               </span>

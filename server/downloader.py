@@ -78,6 +78,11 @@ def extract(url):
         'no_warnings': True,
         'extract_flat': 'in_playlist',
         'logger': MyLogger(),
+        'extractor_args': {
+            'youtube': {
+                'player_client': ['android', 'ios']
+            }
+        }
     }
     
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
@@ -167,7 +172,17 @@ def download(url, format_id, output_dir):
     if format_id == 'thumbnail':
         try:
             # First extract to get thumbnail url
-            ydl_opts = {'skip_download': True, 'quiet': True, 'no_warnings': True, 'logger': MyLogger()}
+            ydl_opts = {
+                'skip_download': True, 
+                'quiet': True, 
+                'no_warnings': True, 
+                'logger': MyLogger(),
+                'extractor_args': {
+                    'youtube': {
+                        'player_client': ['android', 'ios']
+                    }
+                }
+            }
             with yt_dlp.YoutubeDL(ydl_opts) as ydl:
                 info = ydl.extract_info(url, download=False)
                 thumb_url = info.get('thumbnail')
@@ -195,6 +210,11 @@ def download(url, format_id, output_dir):
         'quiet': True,
         'no_warnings': True,
         'logger': MyLogger(),
+        'extractor_args': {
+            'youtube': {
+                'player_client': ['android', 'ios']
+            }
+        }
     }
     
     # Configure options based on format_id
