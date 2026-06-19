@@ -27,6 +27,14 @@ export default function Home() {
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme") || "dark";
     setTheme(savedTheme);
+
+    // Register service worker for PWA support
+    if (typeof window !== "undefined" && "serviceWorker" in navigator) {
+      navigator.serviceWorker
+        .register("/sw.js")
+        .then((reg) => console.log("Service Worker registered successfully:", reg.scope))
+        .catch((err) => console.warn("Service Worker registration failed:", err));
+    }
   }, []);
 
   useEffect(() => {

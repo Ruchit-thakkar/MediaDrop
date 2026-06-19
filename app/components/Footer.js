@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+
 export default function Footer({ theme }) {
   const socialLinks = [
     { 
@@ -72,7 +74,7 @@ export default function Footer({ theme }) {
                 alt="MediaDrop Logo"
                 className="h-6 w-auto object-contain"
               />
-              <div className="flex items-center gap-2.5 group cursor-pointer select-none">
+              <Link href="/" className="flex items-center gap-2.5 group cursor-pointer select-none">
                 {/* Left Accent Bar: Gives it an application feel rather than just a website */}
                 <div className="h-5 w-[3px] bg-gradient-to-b from-blue-500 via-purple-500 to-pink-500 rounded-full opacity-40 group-hover:opacity-100 transition-opacity duration-300" />
 
@@ -82,7 +84,7 @@ export default function Footer({ theme }) {
                     MediaDrop
                   </span>
                 </div>
-              </div>
+              </Link>
             </div>
             <p className="text-zinc-400 text-xs leading-relaxed max-w-xs font-medium">
               High-performance media extraction for a modern web. Simple, fast, and completely private by design.
@@ -94,19 +96,19 @@ export default function Footer({ theme }) {
             <h4 className="text-zinc-900 dark:text-white text-[10px] font-bold uppercase tracking-wider mb-4">Product</h4>
             <ul className="space-y-2 text-xs font-medium text-zinc-400">
               <li>
-                <a href="#" className="hover:text-purple-400 transition-colors">
+                <Link href="/" className="hover:text-purple-400 transition-colors">
                   Video Downloader
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-purple-400 transition-colors">
+                <Link href="/" className="hover:text-purple-400 transition-colors">
                   MP3 Audio Extractor
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-purple-400 transition-colors">
+                <Link href="/" className="hover:text-purple-400 transition-colors">
                   Story & Reel Saver
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -116,19 +118,14 @@ export default function Footer({ theme }) {
             <h4 className="text-zinc-900 dark:text-white text-[10px] font-bold uppercase tracking-wider mb-4">Legal</h4>
             <ul className="space-y-2 text-xs font-medium text-zinc-400">
               <li>
-                <a href="#" className="hover:text-purple-400 transition-colors">
+                <Link href="/privacy" className="hover:text-purple-400 transition-colors">
                   Privacy Policy
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-purple-400 transition-colors">
+                <Link href="/terms" className="hover:text-purple-400 transition-colors">
                   Terms of Service
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-purple-400 transition-colors">
-                  Status Page
-                </a>
+                </Link>
               </li>
             </ul>
           </div>

@@ -1,0 +1,23 @@
+{
+  "name": "MediaDrop",
+  "short_name": "MediaDrop",
+  "description": "Premium Media Downloader & Transcoder",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#09090B",
+  "theme_color": "#7C3AED",
+  "icons": [
+    {
+      "src": "https://ik.imagekit.io/devnext/MediaDropDark.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "https://ik.imagekit.io/devnext/MediaDropDark.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 
 export default function Navbar({ theme, onToggleTheme }) {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -27,7 +28,7 @@ export default function Navbar({ theme, onToggleTheme }) {
     >
       <div className="max-w-6xl mx-auto px-6 h-full flex items-center justify-between">
         {/* Left: Brand logo */}
-        <div className="flex items-center gap-2.5 group cursor-pointer select-none">
+        <Link href="/" className="flex items-center gap-2.5 group cursor-pointer select-none">
           <img
             src={theme === "light" ? "https://ik.imagekit.io/devnext/MediaDroplight.png" : "https://ik.imagekit.io/devnext/MediaDropDark.png"}
             alt="MediaDrop Logo"
@@ -42,34 +43,34 @@ export default function Navbar({ theme, onToggleTheme }) {
               MediaDrop
             </span>
           </div>
-        </div>
+        </Link>
 
         {/* Center: Navigation Links */}
         <div className="hidden md:flex items-center gap-8">
-          <a
-            href="#"
+          <Link
+            href="/"
             className="text-xs font-semibold text-zinc-800 dark:text-white/90 hover:text-zinc-950 dark:hover:text-white transition-colors"
           >
             Home
-          </a>
-          <a
-            href="#features"
+          </Link>
+          <Link
+            href="/#features"
             className="text-xs font-semibold text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors"
           >
             Features
-          </a>
-          <a
-            href="#platforms"
+          </Link>
+          <Link
+            href="/#platforms"
             className="text-xs font-semibold text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors"
           >
             Supported Platforms
-          </a>
-          <a
-            href="#faq"
+          </Link>
+          <Link
+            href="/#faq"
             className="text-xs font-semibold text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors"
           >
             FAQ
-          </a>
+          </Link>
         </div>
 
         {/* Right: Actions */}
