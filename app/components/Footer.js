@@ -14,6 +14,19 @@ export default function Footer({ theme }) {
                 alt="MediaDrop Logo"
                 className="h-6 w-auto object-contain"
               />
+              <div className="flex items-center gap-2.5 group cursor-pointer select-none">
+                {/* Left Accent Bar: Gives it an application feel rather than just a website */}
+                <div className="h-5 w-[3px] bg-gradient-to-b from-blue-500 via-purple-500 to-pink-500 rounded-full opacity-40 group-hover:opacity-100 transition-opacity duration-300" />
+
+                <div className="flex items-center gap-1.5">
+                  {/* Main Text with a subtle premium tracking and gradient mask on hover */}
+                  <span className="text-xl font-bold tracking-tight text-white bg-clip-text group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-white group-hover:via-slate-200 group-hover:to-slate-400 transition-all duration-300 ease-out">
+                    MediaDrop
+                  </span>
+
+
+                </div>
+              </div>
             </div>
             <p className="text-zinc-400 text-xs leading-relaxed max-w-xs font-medium">
               High-performance media extraction for a modern web. Simple, fast, and completely private by design.
