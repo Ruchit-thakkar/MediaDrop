@@ -151,7 +151,25 @@ def extract(url):
                 "entries": entries
             }
         else:
-            # Single media
+            # Get direct playable stream URL for preview in browser (CORS-accessible or direct stream link)
+            video_url = info.get('url')
+            if not video_url and info.get('formats'):
+                # For YouTube, find progressive formats (video + audio) that can play natively in browser
+                progressive_formats = [
+                    f for f in info.get('formats', [])
+                    if f.get('vcodec') != 'none' and f.get('acodec') != 'none' and f.get('ext') == 'mp4' and f.get('url')
+                ]
+                if progressive_formats:
+                    progressive_formats.sort(key=lambda x: x.get('height') or 0, reverse=True)
+                    video_url = progressive_formats[0].get('url')
+                else:
+                    both_formats = [
+                        f for f in info.get('formats', [])
+                        if f.get('vcodec') != 'none' and f.get('acodec') != 'none' and f.get('url')
+                    ]
+                    if both_formats:
+                        video_url = both_formats[0].get('url')
+
             return {
                 "success": True,
                 "is_playlist": False,
@@ -161,7 +179,8 @@ def extract(url):
                 "uploader": info.get("uploader") or info.get("channel") or "Unknown",
                 "platform": extractor,
                 "description": info.get("description") or "",
-                "formats": get_media_formats(info, extractor)
+                "formats": get_media_formats(info, extractor),
+                "video_url": video_url
             }
 
 def download(url, format_id, output_dir):

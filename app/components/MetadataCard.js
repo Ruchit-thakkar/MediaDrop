@@ -7,6 +7,7 @@ export default function MetadataCard({ metadata, copied, onCopyText }) {
   const videoRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [avatarError, setAvatarError] = useState(false);
+  const [showControls, setShowControls] = useState(false);
 
   // Reset avatar error state when metadata changes
   useEffect(() => {
@@ -45,8 +46,8 @@ export default function MetadataCard({ metadata, copied, onCopyText }) {
 
   const contentType = getContentType();
 
-  // For the video player source, use a highly compatible Vercel test video
-  const videoSrc = "https://assets.vercel.com/video/upload/v1538361091/repositories/next.js/next-js.mp4";
+  // For the video player source, use the extracted stream url or fall back to local cached preview video
+  const videoSrc = metadata.video_url || "/preview.mp4";
 
   // Reload the video elements when metadata or source changes to cleanly swap posters and reset state
   useEffect(() => {
@@ -86,7 +87,11 @@ export default function MetadataCard({ metadata, copied, onCopyText }) {
     <div className="premium-card rounded-3xl p-5 overflow-hidden flex flex-col justify-between w-full hover:border-white/10 transition-colors">
       <div>
         {/* Playable Video Preview Container */}
-        <div className="aspect-video w-full rounded-2xl overflow-hidden relative border border-white/5 group bg-zinc-950 select-none shadow-2xl">
+        <div
+          onMouseEnter={() => setShowControls(true)}
+          onMouseLeave={() => setShowControls(false)}
+          className="aspect-video w-full rounded-2xl overflow-hidden relative border border-white/5 group bg-zinc-950 select-none shadow-2xl"
+        >
           <video
             ref={videoRef}
             src={videoSrc}
@@ -94,7 +99,7 @@ export default function MetadataCard({ metadata, copied, onCopyText }) {
             loop
             muted
             playsInline
-            crossOrigin="anonymous"
+            controls={showControls}
             onClick={handlePlayPause}
             onPlay={() => setIsPlaying(true)}
             onPause={() => setIsPlaying(false)}
@@ -102,16 +107,18 @@ export default function MetadataCard({ metadata, copied, onCopyText }) {
           />
 
           {/* Overlay controls indicator */}
-          <div
-            onClick={handlePlayPause}
-            className="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
-          >
-            <div className="w-12 h-12 rounded-full bg-black/70 border border-white/10 flex items-center justify-center text-white backdrop-blur-sm">
-              <span className="material-symbols-outlined text-2xl font-bold">
-                {isPlaying ? "pause" : "play_arrow"}
-              </span>
+          {!showControls && (
+            <div
+              onClick={handlePlayPause}
+              className="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
+            >
+              <div className="w-12 h-12 rounded-full bg-black/70 border border-white/10 flex items-center justify-center text-white backdrop-blur-sm">
+                <span className="material-symbols-outlined text-2xl font-bold">
+                  {isPlaying ? "pause" : "play_arrow"}
+                </span>
+              </div>
             </div>
-          </div>
+          )}
 
           {/* Duration Indicator Badge */}
           {metadata.duration && (
@@ -121,7 +128,7 @@ export default function MetadataCard({ metadata, copied, onCopyText }) {
           )}
 
           {/* Hover play prompt */}
-          {!isPlaying && (
+          {!isPlaying && !showControls && (
             <div className="absolute bottom-3 left-3 bg-black/50 text-white text-[9px] font-bold uppercase tracking-wider px-2 py-1 rounded-lg backdrop-blur-md flex items-center gap-1 pointer-events-none">
               <span className="w-1.5 h-1.5 rounded-full bg-purple-500 animate-pulse"></span>
               Click to preview
