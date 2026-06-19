@@ -21,7 +21,7 @@ export default function FormatCard({ format, preparingDownload, onDownload, isMo
   const getFormatDetails = () => {
     const id = format.id ? format.id.toLowerCase() : "";
     const type = format.type ? format.type.toLowerCase() : "";
-    
+
     // Default video details
     if (type === "video") {
       let iconColor = "bg-purple-600/10 text-purple-400 border-purple-500/20";
@@ -42,7 +42,7 @@ export default function FormatCard({ format, preparingDownload, onDownload, isMo
       }
       return { icon, iconColor, title, subtitle };
     }
-    
+
     // Audio details
     if (type === "audio") {
       return {
@@ -88,13 +88,12 @@ export default function FormatCard({ format, preparingDownload, onDownload, isMo
   return (
     <div
       onClick={handleClick}
-      className={`w-full flex items-center justify-between p-3.5 rounded-2xl bg-[#111113]/60 border border-white/5 select-none transition-all duration-300 ${
-        isAnyDownloading
+      className={`w-full flex items-center justify-between p-3.5 rounded-2xl bg-[#111113]/60 border border-white/5 select-none transition-all duration-300 ${isAnyDownloading
           ? isThisDownloading
             ? "border-purple-500/30 bg-purple-500/[0.03]"
             : "opacity-40 cursor-not-allowed"
           : "cursor-pointer hover:bg-white/[0.02] hover:border-white/10 hover:translate-x-0.5"
-      }`}
+        }`}
     >
       <div className="flex items-center gap-3.5">
         {/* Format category icon square box */}
@@ -123,13 +122,12 @@ export default function FormatCard({ format, preparingDownload, onDownload, isMo
         <button
           type="button"
           disabled={isAnyDownloading}
-          className={`w-9 h-9 rounded-xl flex items-center justify-center border border-white/10 bg-[#1e1e20] text-zinc-300 transition-all duration-300 ${
-            isThisDownloading
+          className={`w-9 h-9 rounded-xl flex items-center justify-center border border-white/10 bg-[#1e1e20] text-zinc-300 transition-all duration-300 ${isThisDownloading
               ? "border-purple-500/40 text-purple-400 bg-purple-500/10"
               : isAnyDownloading
-              ? "opacity-50"
-              : "hover:border-purple-500/30 hover:text-white hover:bg-purple-600/20 active:scale-95 cursor-pointer"
-          }`}
+                ? "opacity-50"
+                : "hover:border-purple-500/30 hover:text-white hover:bg-purple-600/20 active:scale-95 cursor-pointer"
+            }`}
         >
           {isThisDownloading ? (
             <span className="animate-spin h-4 w-4 border-2 border-current border-t-transparent rounded-full"></span>

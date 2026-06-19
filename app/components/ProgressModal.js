@@ -18,7 +18,7 @@ export default function ProgressModal({ preparingDownload, metadata }) {
     if (!metadata) return "media_file.mp4";
     const title = metadata.title || "Media File";
     const safeTitle = title.replace(/[^\w\s-]/gi, '').trim() || "download";
-    
+
     const dlKey = preparingDownload ? preparingDownload.toLowerCase() : "";
     if (dlKey.includes("mp3") || dlKey.includes("audio")) {
       return `${safeTitle}.mp3`;
@@ -78,7 +78,7 @@ export default function ProgressModal({ preparingDownload, metadata }) {
         // Simulate speed (e.g. 4.2 MB/s, changing slightly)
         const simulatedSpeed = (Math.random() * 0.8 + 3.8).toFixed(1);
         setSpeed(`${simulatedSpeed} MB/s`);
-        
+
         // Calculate ETA
         const remainingSeconds = Math.max(1, Math.round((98 - nextProgress) * 0.35));
         setEta(`${remainingSeconds} sec left`);
@@ -173,7 +173,7 @@ export default function ProgressModal({ preparingDownload, metadata }) {
                   return (
                     <div
                       key={bar}
-                      className={`w-[2px] ${heights[bar-1]} bg-gradient-to-t from-purple-500 to-blue-500 rounded-full wave-bar`}
+                      className={`w-[2px] ${heights[bar - 1]} bg-gradient-to-t from-purple-500 to-blue-500 rounded-full wave-bar`}
                     ></div>
                   );
                 })}

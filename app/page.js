@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import LoadingSkeleton from "./components/LoadingSkeleton";
@@ -22,6 +22,32 @@ export default function Home() {
   const [error, setError] = useState("");
   const [metadata, setMetadata] = useState(null);
   
+  const [theme, setTheme] = useState("dark");
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme") || "dark";
+    setTheme(savedTheme);
+    if (savedTheme === "dark") {
+      document.documentElement.classList.add("dark");
+      document.documentElement.classList.remove("light");
+    } else {
+      document.documentElement.classList.add("light");
+      document.documentElement.classList.remove("dark");
+    }
+  }, []);
+
+  const handleToggleTheme = () => {
+    const nextTheme = theme === "dark" ? "light" : "dark";
+    setTheme(nextTheme);
+    localStorage.setItem("theme", nextTheme);
+    if (nextTheme === "dark") {
+      document.documentElement.classList.add("dark");
+      document.documentElement.classList.remove("light");
+    } else {
+      document.documentElement.classList.add("light");
+      document.documentElement.classList.remove("dark");
+    }
+  };
   const [preparingDownload, setPreparingDownload] = useState(null);
   const [downloadError, setDownloadError] = useState("");
   
@@ -122,14 +148,14 @@ export default function Home() {
   const isMock = !metadata;
 
   return (
-    <div className="bg-[#09090B] text-white min-h-screen flex flex-col relative selection:bg-purple-500/30">
+    <div className="bg-background text-on-background min-h-screen flex flex-col relative selection:bg-purple-500/30">
       
       {/* Background Ambient Glows */}
       <div className="absolute top-[-10%] left-[-10%] w-[55vw] h-[55vw] rounded-full ambient-glow-1 blur-[130px] pointer-events-none z-[-1]"></div>
       <div className="absolute top-[40%] right-[-10%] w-[45vw] h-[45vw] rounded-full ambient-glow-2 blur-[130px] pointer-events-none z-[-1]"></div>
 
       {/* Navigation Bar */}
-      <Navbar />
+      <Navbar theme={theme} onToggleTheme={handleToggleTheme} />
 
       {/* Main Content */}
       <main className="pt-24 flex-grow">
@@ -246,7 +272,7 @@ export default function Home() {
       </main>
 
       {/* Footer copyright and built info */}
-      <Footer />
+      <Footer theme={theme} />
     </div>
   );
 }

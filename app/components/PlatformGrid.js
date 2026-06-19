@@ -69,7 +69,7 @@ export default function PlatformGrid() {
               <h3 className={`text-base font-bold text-white transition-colors duration-300 ${plat.color}`}>
                 {plat.name}
               </h3>
-              
+
               <ul className="mt-3.5 space-y-2 select-none">
                 {plat.types.map((type) => (
                   <li key={type} className="flex items-center gap-2 text-xs text-zinc-400/90 font-medium">

@@ -44,7 +44,7 @@ export default function HowItWorks() {
               <span className="material-symbols-outlined text-2xl text-purple-400 group-hover:text-purple-300">
                 {step.icon}
               </span>
-              
+
               {/* Step number badge */}
               <div className="absolute -top-2.5 -right-2.5 w-7 h-7 bg-white text-black font-extrabold rounded-full text-xs flex items-center justify-center shadow-lg border border-black/5">
                 {step.num}

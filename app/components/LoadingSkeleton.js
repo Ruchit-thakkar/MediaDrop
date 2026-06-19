@@ -14,12 +14,12 @@ export default function LoadingSkeleton() {
               {/* Platform badge placeholder */}
               <div className="absolute top-2 left-2 w-20 h-5 rounded bg-white/5 border border-white/5"></div>
             </div>
-            
+
             <div className="mt-5 px-1">
               {/* Title lines */}
               <div className="h-5 w-5/6 rounded shimmer-bg mb-2"></div>
               <div className="h-5 w-2/3 rounded shimmer-bg mb-4"></div>
-              
+
               {/* Creator details */}
               <div className="flex items-center gap-2">
                 <div className="w-5 h-5 rounded-full shimmer-bg"></div>
@@ -27,7 +27,7 @@ export default function LoadingSkeleton() {
               </div>
             </div>
           </div>
-          
+
           {/* Description line placeholder */}
           <div className="mt-4 pt-4 border-t border-white/5">
             <div className="h-3 w-1/4 rounded shimmer-bg mb-2"></div>

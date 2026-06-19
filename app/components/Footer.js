@@ -1,22 +1,19 @@
 "use client";
 
-export default function Footer() {
+export default function Footer({ theme }) {
   return (
-    <footer className="border-t border-white/5 bg-[#050507] py-14 select-none">
+    <footer className="border-t border-border-subtle bg-background/40 py-14 select-none">
       <div className="max-w-6xl mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
-          
+
           {/* Logo & Description */}
           <div className="md:col-span-4">
             <div className="flex items-center gap-2.5 mb-4">
-              <div className="w-7 h-7 rounded-lg primary-gradient flex items-center justify-center shadow-lg shadow-purple-900/30">
-                <span className="material-symbols-outlined text-white text-base font-bold">
-                  download
-                </span>
-              </div>
-              <span className="text-lg font-bold tracking-tight text-white">
-                MediaDrop
-              </span>
+              <img
+                src={theme === "light" ? "https://ik.imagekit.io/devnext/MediaDroplight.png" : "https://ik.imagekit.io/devnext/MediaDropDark.png"}
+                alt="MediaDrop Logo"
+                className="h-6 w-auto object-contain"
+              />
             </div>
             <p className="text-zinc-400 text-xs leading-relaxed max-w-xs font-medium">
               High-performance media extraction for a modern web. Simple, fast, and completely private by design.
@@ -83,7 +80,7 @@ export default function Footer() {
         </div>
 
         {/* Tech Stack and Copyright */}
-        <div className="mt-12 pt-6 border-t border-white/5 flex flex-col sm:flex-row justify-between items-center gap-4 text-[10px] font-mono text-zinc-500 uppercase tracking-widest text-center sm:text-left">
+        <div className="mt-12 pt-6 border-t border-border-subtle flex flex-col sm:flex-row justify-between items-center gap-4 text-[10px] font-mono text-zinc-500 uppercase tracking-widest text-center sm:text-left">
           <span>© 2026 MediaDrop. All rights reserved.</span>
           <span className="normal-case tracking-normal text-zinc-500 font-sans font-medium">
             Built with Next.js, Node.js, Express, Python, yt-dlp and FFmpeg.

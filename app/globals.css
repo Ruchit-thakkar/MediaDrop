@@ -1,11 +1,11 @@
 @import "tailwindcss";
 
 @theme {
-  --color-background: #09090B;
-  --color-card-bg: #111113;
+  --color-background: var(--background);
+  --color-card-bg: var(--card-bg);
   --color-accent-purple: #7C3AED;
   --color-accent-blue: #2563EB;
-  --color-border-subtle: rgba(255, 255, 255, 0.06);
+  --color-border-subtle: var(--border-subtle);
   --color-border-glow: rgba(124, 58, 237, 0.25);
   
   --font-headline-md: var(--font-geist);
@@ -21,6 +21,7 @@
 }
 
 :root {
+  /* Default Theme: Dark Mode */
   --background: #09090B;
   --on-background: #FFFFFF;
   --text-muted: #9CA3AF;
@@ -29,6 +30,18 @@
   --glass-bg: rgba(17, 17, 19, 0.7);
   --glass-border: rgba(255, 255, 255, 0.08);
   --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
+}
+
+html.light {
+  /* Toggle Theme: Light Mode */
+  --background: #FAFAFA;
+  --on-background: #0F172A;
+  --text-muted: #71717A;
+  --card-bg: #FFFFFF;
+  --border-subtle: rgba(15, 23, 42, 0.06);
+  --glass-bg: rgba(255, 255, 255, 0.8);
+  --glass-border: rgba(15, 23, 42, 0.08);
+  --glass-shadow: 0 8px 32px 0 rgba(15, 23, 42, 0.04);
 }
 
 .material-symbols-outlined {
@@ -40,6 +53,7 @@ body {
   color: var(--on-background);
   font-family: var(--font-geist), system-ui, -apple-system, sans-serif;
   overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Custom Scrollbar */
@@ -106,18 +120,18 @@ body {
 }
 
 .shimmer-bg {
-  background: linear-gradient(90deg, #111113 25%, #1E1E22 50%, #111113 75%);
+  background: linear-gradient(90deg, var(--card-bg) 25%, rgba(124, 58, 237, 0.05) 50%, var(--card-bg) 75%);
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite linear;
 }
 
 /* Ambient Radial Glows */
 .ambient-glow-1 {
-  background: radial-gradient(circle, rgba(124, 58, 237, 0.08) 0%, rgba(0, 0, 0, 0) 70%);
+  background: radial-gradient(circle, rgba(124, 58, 237, 0.05) 0%, transparent 70%);
 }
 
 .ambient-glow-2 {
-  background: radial-gradient(circle, rgba(37, 99, 235, 0.06) 0%, rgba(0, 0, 0, 0) 70%);
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.04) 0%, transparent 70%);
 }
 
 /* Circular progress animations */
@@ -152,3 +166,89 @@ body {
 .wave-bar:nth-child(8) { animation-delay: 0.12s; }
 .wave-bar:nth-child(9) { animation-delay: 0.3s; }
 .wave-bar:nth-child(10) { animation-delay: 0.05s; }
+
+/* Light Mode Overrides for Hardcoded Tailwind Opacities */
+html.light {
+  /* Borders */
+  .border-white\/5 {
+    border-color: rgba(9, 9, 11, 0.06) !important;
+  }
+  .border-white\/10 {
+    border-color: rgba(9, 9, 11, 0.08) !important;
+  }
+  .border-white\/\[0\.04\] {
+    border-color: rgba(9, 9, 11, 0.05) !important;
+  }
+  
+  /* Backgrounds */
+  .bg-white\/5 {
+    background-color: rgba(9, 9, 11, 0.03) !important;
+  }
+  .bg-white\/10 {
+    background-color: rgba(9, 9, 11, 0.05) !important;
+  }
+  .bg-white\/\[0\.02\] {
+    background-color: rgba(9, 9, 11, 0.015) !important;
+  }
+  .bg-white\/\[0\.01\] {
+    background-color: rgba(9, 9, 11, 0.008) !important;
+  }
+  
+  /* Hover Backgrounds */
+  .hover\:bg-white\/5:hover {
+    background-color: rgba(9, 9, 11, 0.05) !important;
+  }
+  .hover\:bg-white\/\[0\.02\]:hover {
+    background-color: rgba(9, 9, 11, 0.02) !important;
+  }
+
+  /* Specific background helpers */
+  .bg-zinc-950 {
+    background-color: #F4F4F5 !important;
+  }
+  .bg-zinc-900 {
+    background-color: #E4E4E7 !important;
+  }
+  .bg-\[\#111113\]\/60 {
+    background-color: rgba(255, 255, 255, 0.6) !important;
+  }
+  .bg-\[\#111113\]\/40 {
+    background-color: rgba(255, 255, 255, 0.4) !important;
+  }
+  .bg-\[\#09090B\] {
+    background-color: #FAFAFA !important;
+  }
+  .bg-\[\#09090B\]\/80 {
+    background-color: rgba(250, 250, 250, 0.8) !important;
+  }
+  .bg-\[\#050507\] {
+    background-color: #F4F4F5 !important;
+  }
+  .bg-\[\#111113\] {
+    background-color: #FFFFFF !important;
+  }
+  
+  /* Muted Text */
+  .text-zinc-400 {
+    color: #52525B !important;
+  }
+  .text-zinc-500 {
+    color: #71717A !important;
+  }
+  .text-zinc-300 {
+    color: #27272A !important;
+  }
+  .text-zinc-400\/90 {
+    color: rgba(9, 9, 11, 0.7) !important;
+  }
+  
+  /* Card focus style */
+  .focus-within\:border-purple-500\/50:focus-within {
+    border-color: rgba(124, 58, 237, 0.4) !important;
+  }
+  
+  /* Selection bg */
+  .selection\:bg-primary\/30::selection {
+    background-color: rgba(124, 58, 237, 0.2) !important;
+  }
+}

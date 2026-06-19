@@ -37,16 +37,15 @@ export default function FAQSection() {
       <h2 className="text-3xl font-extrabold tracking-tight text-center text-white mb-12">
         Frequently Asked Questions
       </h2>
-      
+
       <div className="space-y-3.5">
         {faqs.map((faq, idx) => {
           const isOpen = openIndex === idx;
           return (
             <div
               key={idx}
-              className={`premium-card rounded-2xl overflow-hidden border border-white/5 transition-colors duration-300 ${
-                isOpen ? "border-purple-500/25 bg-white/[0.02]" : "hover:border-white/10"
-              }`}
+              className={`premium-card rounded-2xl overflow-hidden border border-white/5 transition-colors duration-300 ${isOpen ? "border-purple-500/25 bg-white/[0.02]" : "hover:border-white/10"
+                }`}
             >
               {/* Question Trigger */}
               <button
@@ -56,9 +55,8 @@ export default function FAQSection() {
               >
                 <span>{faq.q}</span>
                 <span
-                  className={`material-symbols-outlined text-zinc-500 transition-transform duration-300 ${
-                    isOpen ? "rotate-180 text-purple-400" : "rotate-0"
-                  }`}
+                  className={`material-symbols-outlined text-zinc-500 transition-transform duration-300 ${isOpen ? "rotate-180 text-purple-400" : "rotate-0"
+                    }`}
                 >
                   expand_more
                 </span>
@@ -66,9 +64,8 @@ export default function FAQSection() {
 
               {/* Answer Box (Smooth CSS Height Transition) */}
               <div
-                className={`grid transition-all duration-300 ease-in-out ${
-                  isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
-                }`}
+                className={`grid transition-all duration-300 ease-in-out ${isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+                  }`}
               >
                 <div className="overflow-hidden">
                   <div className="px-5 pb-5 text-xs text-zinc-400 leading-relaxed font-medium pt-1.5 border-t border-white/[0.04]">
