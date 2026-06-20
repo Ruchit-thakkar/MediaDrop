@@ -14,7 +14,7 @@ import FeaturesSection from "./components/FeaturesSection";
 import FAQSection from "./components/FAQSection";
 import Footer from "./components/Footer";
 
-const API_BASE = "/api";
+// FIX: Establish your fallback production Railway URL clearly
 const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "https://media-drop-backend-production.up.railway.app";
 
 export default function Home() {
@@ -22,8 +22,10 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [metadata, setMetadata] = useState(null);
-  
   const [theme, setTheme] = useState("dark");
+  const [preparingDownload, setPreparingDownload] = useState(null);
+  const [downloadError, setDownloadError] = useState("");
+  const [copied, setCopied] = useState(false);
 
   // 1. Instantly wake up the backend when the web app mounts
   useEffect(() => {
@@ -33,26 +35,11 @@ export default function Home() {
       .catch(err => console.error("Server wake up failed:", err));
   }, []);
 
-  // 2. Example test function to extract metadata from a video URL
-  const testExtractMedia = async (targetUrl) => {
-    try {
-      const response = await fetch(`${BACKEND_URL}/api/extract`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ url: targetUrl })
-      });
-      const data = await response.json();
-      console.log("Extracted Meta Data Result:", data);
-    } catch (error) {
-      console.error("Extraction routing error:", error);
-    }
-  };
-
+  // 2. Theme & Service Worker Management
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme") || "dark";
     setTheme(savedTheme);
 
-    // Register service worker for PWA support
     if (typeof window !== "undefined" && "serviceWorker" in navigator) {
       navigator.serviceWorker
         .register("/sw.js")
@@ -71,26 +58,15 @@ export default function Home() {
     }
     localStorage.setItem("theme", theme);
 
-    // Dynamic favicon updates to match current theme mode
     const faviconUrl = theme === "light"
       ? "https://ik.imagekit.io/devnext/MediaDroplight.png"
       : "https://ik.imagekit.io/devnext/MediaDropDark.png";
 
     const links = document.querySelectorAll("link[rel*='icon']");
-    links.forEach(link => {
-      link.href = faviconUrl;
-    });
+    links.forEach(link => { link.href = faviconUrl; });
   }, [theme]);
 
-  const handleToggleTheme = () => {
-    setTheme(prev => prev === "dark" ? "light" : "dark");
-  };
-  const [preparingDownload, setPreparingDownload] = useState(null);
-  const [downloadError, setDownloadError] = useState("");
-  
-  // Copy state
-  const [copied, setCopied] = useState(false);
-
+  const handleToggleTheme = () => setTheme(prev => prev === "dark" ? "light" : "dark");
   const handleCopyText = (text) => {
     if (!text) return;
     navigator.clipboard.writeText(text);
@@ -98,6 +74,7 @@ export default function Home() {
     setTimeout(() => setCopied(false), 2000);
   };
 
+  // FIX: Main media metadata extraction router targeting Railway directly
   const handleExtract = async (e) => {
     if (e) e.preventDefault();
     if (!url.trim()) return;
@@ -108,7 +85,7 @@ export default function Home() {
     setMetadata(null);
 
     try {
-      const response = await fetch(`${API_BASE}/extract`, {
+      const response = await fetch(`${BACKEND_URL}/api/extract`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ url: url.trim() }),
@@ -127,34 +104,49 @@ export default function Home() {
     }
   };
 
+  // FIX: Direct pipeline to receive and trigger processed static file downloads
   const handleDownload = async (formatId, targetUrl = null, entryIndex = null) => {
     const dlKey = entryIndex !== null ? `${formatId}-${entryIndex}` : formatId;
     setPreparingDownload(dlKey);
     setDownloadError("");
 
     try {
-      const response = await fetch(`${API_BASE}/download/prepare`, {
+      const response = await fetch(`${BACKEND_URL}/api/download`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           url: targetUrl || url,
-          formatId: formatId,
+          format: formatId,
         }),
       });
 
-      const data = await response.json();
-      if (!response.ok || !data.success) {
-        throw new Error(data.error || "Failed to prepare download.");
+      if (!response.ok) {
+        const errData = await response.json().catch(() => ({}));
+        throw new Error(errData.error || "Failed to download media file from backend.");
       }
 
-      // Trigger actual browser download
-      const downloadLink = `${API_BASE}/download/file?token=${data.token}&filename=${encodeURIComponent(data.filename)}`;
+      // Convert the server binary stream directly into an internal browser blob object
+      const blob = await response.blob();
+      
+      // Parse out structural attachment filenames sent from the flask response headers
+      const contentDisposition = response.headers.get('Content-Disposition');
+      let filename = `media_file.${formatId.includes('mp3') ? 'mp3' : 'mp4'}`;
+      if (contentDisposition && contentDisposition.includes('filename=')) {
+        filename = contentDisposition.split('filename=')[1].replace(/['"]/g, '');
+      }
+
+      // Run virtual DOM link generation to activate local download mechanics
+      const downloadUrl = window.URL.createObjectURL(blob);
       const a = document.createElement("a");
-      a.href = downloadLink;
-      a.download = data.filename;
+      a.href = downloadUrl;
+      a.download = filename;
       document.body.appendChild(a);
       a.click();
+      
+      // Clear memory buffers efficiently
       document.body.removeChild(a);
+      window.URL.revokeObjectURL(downloadUrl);
+
     } catch (err) {
       setDownloadError(err.message);
     } finally {
@@ -162,7 +154,7 @@ export default function Home() {
     }
   };
 
-  // Mock metadata to show when page loads before extraction
+  // Mock metadata preview defaults
   const mockMetadata = {
     is_playlist: false,
     title: "Breathtaking Sunset",
@@ -170,14 +162,12 @@ export default function Home() {
     duration: "00:42",
     uploader: "visualdiary",
     platform: "instagram",
-    description: "Catching a breathtaking sunset over the mountains. The colors were absolutely unbelievable tonight. #sunset #nature #mountains #reels",
+    description: "Catching a breathtaking sunset over the mountains. #sunset #nature",
     formats: [
       { id: "1080p", name: "MP4 1080p", type: "video", ext: "mp4", quality: "1080p", note: "Full HD" },
       { id: "720p", name: "MP4 720p", type: "video", ext: "mp4", quality: "720p", note: "HD" },
-      { id: "480p", name: "MP4 480p", type: "video", ext: "mp4", quality: "480p", note: "SD" },
       { id: "mp3-320", name: "MP3 320kbps", type: "audio", ext: "mp3", quality: "320kbps", note: "Audio" },
-      { id: "thumbnail", name: "Thumbnail JPG", type: "image", ext: "jpg", quality: "Original", note: "Image" },
-      { id: "album-zip", name: "Album ZIP", type: "image", ext: "zip", quality: "Original", note: "All Images" }
+      { id: "thumbnail", name: "Thumbnail JPG", type: "image", ext: "jpg", quality: "Original", note: "Image" }
     ]
   };
 
@@ -186,52 +176,32 @@ export default function Home() {
 
   return (
     <div className="bg-background text-on-background min-h-screen flex flex-col relative overflow-x-hidden selection:bg-purple-500/30">
-      
-      {/* Background Ambient Glows */}
       <div className="absolute top-[-10%] left-[-10%] w-[55vw] h-[55vw] rounded-full ambient-glow-1 blur-[130px] pointer-events-none z-[-1]"></div>
       <div className="absolute top-[40%] right-[-10%] w-[45vw] h-[45vw] rounded-full ambient-glow-2 blur-[130px] pointer-events-none z-[-1]"></div>
 
-      {/* Navigation Bar */}
       <Navbar theme={theme} onToggleTheme={handleToggleTheme} />
 
-      {/* Main Content */}
       <main className="pt-24 flex-grow">
-        
-        {/* Hero Section & URL Input */}
-        <Hero
-          url={url}
-          setUrl={setUrl}
-          isLoading={isLoading}
-          handleExtract={handleExtract}
-        />
+        <Hero url={url} setUrl={setUrl} isLoading={isLoading} handleExtract={handleExtract} />
 
-        {/* Error Alert */}
         {error && (
           <section className="max-w-2xl mx-auto px-6 mb-8 animate-fade-in">
             <div className="p-4 rounded-2xl bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-500/20 text-red-600 dark:text-red-400 flex items-start gap-3 shadow-lg">
               <span className="material-symbols-outlined text-xl shrink-0 mt-0.5">error</span>
-              <div className="text-xs font-semibold">
-                <span className="font-extrabold uppercase">Extraction Failed: </span>
-                {error}
-              </div>
+              <div className="text-xs font-semibold"><span className="font-extrabold uppercase">Extraction Failed: </span>{error}</div>
             </div>
           </section>
         )}
 
-        {/* Download Error Alert */}
         {downloadError && (
           <section className="max-w-2xl mx-auto px-6 mb-8 animate-fade-in">
             <div className="p-4 rounded-2xl bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-500/20 text-red-600 dark:text-red-400 flex items-start gap-3 shadow-lg">
               <span className="material-symbols-outlined text-xl shrink-0 mt-0.5">warning</span>
-              <div className="text-xs font-semibold">
-                <span className="font-extrabold uppercase">Download Failed: </span>
-                {downloadError}
-              </div>
+              <div className="text-xs font-semibold"><span className="font-extrabold uppercase">Download Failed: </span>{downloadError}</div>
             </div>
           </section>
         )}
 
-        {/* Metadata extraction result view */}
         {isLoading ? (
           <LoadingSkeleton />
         ) : (
@@ -245,70 +215,34 @@ export default function Home() {
             )}
 
             {!activeMeta.is_playlist ? (
-              // Single Media Output Layout
               <div className="w-full max-w-6xl mx-auto px-6 mb-20">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-                  
-                  {/* Left Column: Metadata Preview Card */}
                   <div className="lg:col-span-5">
-                    <MetadataCard
-                      metadata={activeMeta}
-                      copied={copied}
-                      onCopyText={handleCopyText}
-                    />
+                    <MetadataCard metadata={activeMeta} copied={copied} onCopyText={handleCopyText} />
                   </div>
-
-                  {/* Right Column: Available Formats Card (single vertical stack container) */}
                   <div className="lg:col-span-7 premium-card rounded-3xl p-6 border border-white/5 flex flex-col justify-start">
-                    <h3 className="text-zinc-900 dark:text-white font-extrabold text-sm tracking-wide uppercase mb-4 select-none">
-                      Available Formats
-                    </h3>
+                    <h3 className="text-zinc-900 dark:text-white font-extrabold text-sm tracking-wide uppercase mb-4 select-none">Available Formats</h3>
                     <div className="flex flex-col gap-3">
                       {activeMeta.formats.map((format) => (
-                        <FormatCard
-                          key={format.id}
-                          format={format}
-                          preparingDownload={preparingDownload}
-                          onDownload={handleDownload}
-                          isMock={isMock}
-                        />
+                        <FormatCard key={format.id} format={format} preparingDownload={preparingDownload} onDownload={handleDownload} isMock={isMock} />
                       ))}
                     </div>
                   </div>
-
                 </div>
               </div>
             ) : (
-              // Playlist / Carousel Output Layout
-              <PlaylistView
-                metadata={activeMeta}
-                preparingDownload={preparingDownload}
-                onDownload={handleDownload}
-                copied={copied}
-                onCopyText={handleCopyText}
-              />
+              <PlaylistView metadata={activeMeta} preparingDownload={preparingDownload} onDownload={handleDownload} copied={copied} onCopyText={handleCopyText} />
             )}
           </section>
         )}
 
-        {/* Floating Download Progress Modal */}
         <ProgressModal preparingDownload={preparingDownload} metadata={activeMeta} />
-
-        {/* Seamless Platform Support */}
         <PlatformGrid />
-
-        {/* How It Works Steps timeline */}
         <HowItWorks />
-
-        {/* Performance Features */}
         <FeaturesSection />
-
-        {/* Frequently Asked Questions */}
         <FAQSection />
-
       </main>
 
-      {/* Footer copyright and built info */}
       <Footer theme={theme} />
     </div>
   );
