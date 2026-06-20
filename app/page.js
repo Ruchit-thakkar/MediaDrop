@@ -15,6 +15,7 @@ import FAQSection from "./components/FAQSection";
 import Footer from "./components/Footer";
 
 const API_BASE = "/api";
+const BACKEND_URL = "https://media-drop-backend-production.up.railway.app";
 
 export default function Home() {
   const [url, setUrl] = useState("");
@@ -23,6 +24,29 @@ export default function Home() {
   const [metadata, setMetadata] = useState(null);
   
   const [theme, setTheme] = useState("dark");
+
+  // 1. Instantly wake up the backend when the web app mounts
+  useEffect(() => {
+    fetch(`${BACKEND_URL}/wake-up`)
+      .then(res => res.json())
+      .then(data => console.log("Wake up confirmation:", data))
+      .catch(err => console.error("Server wake up failed:", err));
+  }, []);
+
+  // 2. Example test function to extract metadata from a video URL
+  const testExtractMedia = async (targetUrl) => {
+    try {
+      const response = await fetch(`${BACKEND_URL}/api/extract`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ url: targetUrl })
+      });
+      const data = await response.json();
+      console.log("Extracted Meta Data Result:", data);
+    } catch (error) {
+      console.error("Extraction routing error:", error);
+    }
+  };
 
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme") || "dark";

@@ -1,5 +1,15 @@
 "use client";
 
+const formatBytes = (bytes) => {
+  if (bytes === undefined || bytes === null || isNaN(bytes)) return null;
+  if (bytes === 0) return "0 Bytes";
+  const k = 1024;
+  const dm = 1;
+  const sizes = ["Bytes", "KB", "MB", "GB", "TB"];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + " " + sizes[i];
+};
+
 export default function FormatCard({ format, preparingDownload, onDownload, isMock }) {
   const isThisDownloading = preparingDownload === format.id;
   const isAnyDownloading = !!preparingDownload;
@@ -73,7 +83,7 @@ export default function FormatCard({ format, preparingDownload, onDownload, isMo
   };
 
   const { icon, iconColor, title, subtitle } = getFormatDetails();
-  const fileSize = getFileSize(format.id);
+  const fileSize = format.filesize ? formatBytes(format.filesize) : getFileSize(format.id);
 
   const handleClick = () => {
     if (isMock) {
