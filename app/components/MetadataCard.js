@@ -58,6 +58,9 @@ export default function MetadataCard({ metadata, copied, onCopyText }) {
 
   // Construct a public profile avatar URL using unavatar.io service
   const getAvatarUrl = () => {
+    if (metadata.uploader_avatar) {
+      return metadata.uploader_avatar;
+    }
     const plat = metadata.platform ? metadata.platform.toLowerCase() : "";
     const uploader = metadata.uploader_id || metadata.uploader;
     if (!uploader || uploader.toLowerCase() === "unknown") return null;

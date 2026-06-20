@@ -15,7 +15,7 @@ import FAQSection from "./components/FAQSection";
 import Footer from "./components/Footer";
 
 const API_BASE = "/api";
-const BACKEND_URL = "https://media-drop-backend-production.up.railway.app";
+const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "https://media-drop-backend-production.up.railway.app";
 
 export default function Home() {
   const [url, setUrl] = useState("");
