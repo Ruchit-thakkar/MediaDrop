@@ -455,64 +455,81 @@ export default function GeminiRemoverPage() {
 
 
 
-        {/* Informational Algorithm Section */}
-        <section className="mt-20 border-t border-white/5 pt-16 animate-fade-in">
-          <h2 className="text-xl sm:text-2xl font-black text-zinc-900 dark:text-white mb-8 text-center sm:text-left">
-            How The Mathematical Restoration Works
-          </h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-
-            {/* Blending Card */}
-            <div className="premium-card rounded-2xl p-6 border border-white/5">
+        {/* Informational Section */}
+        <section className="mt-20 border-t border-zinc-200 dark:border-white/5 pt-16 animate-fade-in">
+          
+          {/* Core Features Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+            {/* 100% Lossless */}
+            <div className="premium-card rounded-2xl p-6 border border-white/5 hover:border-purple-500/30 transition-colors">
               <div className="w-10 h-10 rounded-xl bg-purple-500/10 flex items-center justify-center mb-4">
-                <span className="material-symbols-outlined text-purple-400">layers</span>
+                <span className="material-symbols-outlined text-purple-400">high_quality</span>
               </div>
-              <h3 className="text-zinc-900 dark:text-white font-extrabold text-sm mb-2">1. The Blending Equation</h3>
-              <p className="text-zinc-500 dark:text-zinc-400 text-xs font-medium leading-relaxed mb-4">
-                Gemini overlays its watermark by blending a semi-transparent white logo onto the original pixels.
+              <h3 className="text-zinc-900 dark:text-white font-extrabold text-sm mb-2">100% Lossless</h3>
+              <p className="text-zinc-500 dark:text-zinc-400 text-xs font-semibold leading-relaxed">
+                The quality stays 100% perfect. No compression, no artifacts. It restores the original pixels mathematically.
               </p>
-              <div className="bg-white/5 dark:bg-white/[0.02] p-3 rounded-xl border border-white/5 text-center font-mono text-[10px] text-zinc-900 dark:text-zinc-300">
-                Pixel_final = (α × 255) + (1 - α) × Pixel_original
-              </div>
             </div>
 
-            {/* Inversion Card */}
-            <div className="premium-card rounded-2xl p-6 border border-white/5">
+            {/* Privacy First */}
+            <div className="premium-card rounded-2xl p-6 border border-white/5 hover:border-blue-500/30 transition-colors">
               <div className="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center mb-4">
-                <span className="material-symbols-outlined text-blue-400">calculate</span>
+                <span className="material-symbols-outlined text-blue-400">lock</span>
               </div>
-              <h3 className="text-zinc-900 dark:text-white font-extrabold text-sm mb-2">2. Algebraic Inversion</h3>
-              <p className="text-zinc-500 dark:text-zinc-400 text-xs font-medium leading-relaxed mb-4">
-                By rearranging the blending formula, the restoration logic reverses the mathematical overlay.
+              <h3 className="text-zinc-900 dark:text-white font-extrabold text-sm mb-2">Privacy First</h3>
+              <p className="text-zinc-500 dark:text-zinc-400 text-xs font-semibold leading-relaxed">
+                It works 100% inside your browser (Client-Side). Your photos are never uploaded to any server.
               </p>
-              <div className="bg-white/5 dark:bg-white/[0.02] p-3 rounded-xl border border-white/5 text-center font-mono text-[10px] text-zinc-900 dark:text-zinc-300">
-                Pixel_original = (Pixel_final - α × 255) / (1 - α)
-              </div>
             </div>
 
-            {/* Privacy Card */}
-            <div className="premium-card rounded-2xl p-6 border border-white/5">
+            {/* Open Source */}
+            <div className="premium-card rounded-2xl p-6 border border-white/5 hover:border-green-500/30 transition-colors">
               <div className="w-10 h-10 rounded-xl bg-green-500/10 flex items-center justify-center mb-4">
-                <span className="material-symbols-outlined text-green-400">security</span>
+                <span className="material-symbols-outlined text-green-400">code</span>
               </div>
-              <h3 className="text-zinc-900 dark:text-white font-extrabold text-sm mb-2">3. Zero Data Leakage</h3>
-              <p className="text-zinc-500 dark:text-zinc-400 text-xs font-medium leading-relaxed mb-4">
-                All image array calculations are processed using Float32 buffers inside your browser. No files are uploaded to any external server.
+              <h3 className="text-zinc-900 dark:text-white font-extrabold text-sm mb-2">Open Source</h3>
+              <p className="text-zinc-500 dark:text-zinc-400 text-xs font-semibold leading-relaxed">
+                Completely free and open source. Developers can inspect the code on <a href="https://github.com" target="_blank" rel="noreferrer" className="text-purple-500 hover:underline">GitHub</a>.
               </p>
-              <div className="bg-white/5 dark:bg-white/[0.02] p-3 rounded-xl border border-white/5 text-center font-mono text-[10px] text-green-600 dark:text-green-400 uppercase font-extrabold">
-                🔒 100% Browser Local
-              </div>
             </div>
-
           </div>
 
-          {/* Legal / Note Disclaimer */}
-          <div className="mt-8 p-4 rounded-2xl bg-zinc-50 dark:bg-white/[0.02] border border-zinc-200 dark:border-white/5 text-zinc-500 dark:text-zinc-400 flex items-start gap-3 max-w-4xl mx-auto">
-            <span className="material-symbols-outlined text-xl shrink-0 text-zinc-400">info</span>
-            <div className="text-[11px] font-medium leading-normal">
-              <span className="font-extrabold text-zinc-900 dark:text-white">Note: </span>
-              This tool only removes visible logo watermarks added via standard blending. It does not remove invisible, steganographic SynthID watermarks embedded in the high-frequency components of the image data. Please use this tool in compliance with licensing terms and respect original creators.
+          {/* Quick Note & Important Rule Split Section */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+            {/* A Quick Note */}
+            <div className="p-6 rounded-2xl bg-zinc-50 dark:bg-white/[0.02] border border-zinc-200 dark:border-white/5 flex flex-col justify-center">
+              <div className="flex items-center gap-2.5 mb-3">
+                <span className="material-symbols-outlined text-zinc-500 dark:text-zinc-400">info</span>
+                <h3 className="font-extrabold text-zinc-900 dark:text-white text-sm">A Quick Note</h3>
+              </div>
+              <p className="text-[11px] text-zinc-500 dark:text-zinc-400 font-semibold leading-relaxed">
+                This tool removes only the visible logo for aesthetic purposes (like presentations or mockups). It does not remove the invisible "SynthID" watermark that Google embeds for safety.
+              </p>
+            </div>
+
+            {/* One Important Rule */}
+            <div className="p-6 rounded-2xl bg-zinc-50 dark:bg-white/[0.02] border border-zinc-200 dark:border-white/5">
+              <div className="flex items-center gap-2.5 mb-3">
+                <span className="material-symbols-outlined text-amber-500">warning</span>
+                <h3 className="font-extrabold text-zinc-900 dark:text-white text-sm">One Important Rule</h3>
+              </div>
+              <p className="text-[11px] text-zinc-500 dark:text-zinc-400 font-semibold leading-relaxed mb-4">
+                For the math to work, you must use the actual downloaded image file.
+              </p>
+              <div className="space-y-2 text-[10px] font-bold text-zinc-600 dark:text-zinc-400">
+                <div className="flex items-center gap-2 bg-red-500/5 dark:bg-red-500/10 px-3 py-1.5 rounded-lg border border-red-500/10 text-red-600 dark:text-red-400">
+                  <span className="font-extrabold text-sm leading-none">×</span>
+                  <span>Don't right-click "Save As"</span>
+                </div>
+                <div className="flex items-center gap-2 bg-red-500/5 dark:bg-red-500/10 px-3 py-1.5 rounded-lg border border-red-500/10 text-red-600 dark:text-red-400">
+                  <span className="font-extrabold text-sm leading-none">×</span>
+                  <span>Don't use screenshots</span>
+                </div>
+                <div className="flex items-center gap-2 bg-green-500/5 dark:bg-green-500/10 px-3 py-1.5 rounded-lg border border-green-500/10 text-green-600 dark:text-green-400">
+                  <span className="font-extrabold text-sm leading-none">✓</span>
+                  <span>Use the Download button in Gemini</span>
+                </div>
+              </div>
             </div>
           </div>
 

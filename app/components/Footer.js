@@ -110,6 +110,11 @@ export default function Footer({ theme }) {
                   Story & Reel Saver
                 </Link>
               </li>
+              <li>
+                <Link href="/gemini-remover" className="hover:text-purple-400 transition-colors">
+                  Gemini Watermark Remover
+                </Link>
+              </li>
             </ul>
           </div>
 
