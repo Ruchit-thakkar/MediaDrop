@@ -60,6 +60,12 @@ export default function Navbar({ theme, onToggleTheme }) {
             Features
           </Link>
           <Link
+            href="/gemini-remover"
+            className="text-xs font-semibold text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors"
+          >
+            Gemini Remover
+          </Link>
+          <Link
             href="/#platforms"
             className="text-xs font-semibold text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors"
           >
