@@ -50,83 +50,83 @@ const toolsByCategory = {
     title: "Audio Tools",
     icon: "audiotrack",
     tools: [
-      { name: "MP3 Compressor", desc: "Reduce audio file sizes by adjusting bitrate settings." },
-      { name: "Audio Converter", desc: "Convert audio formats like WAV, M4A, FLAC, and OGG to MP3." },
-      { name: "Audio Trimmer", desc: "Trim audio tracks to create ringtones or shorten clips." },
-      { name: "Merge Audio Files", desc: "Combine multiple audio tracks into a continuous mix." },
-      { name: "Change Audio Speed", desc: "Adjust the tempo or pitch of an audio file." },
-      { name: "Volume Booster", desc: "Safely increase the volume level of quiet audio files." },
-      { name: "Voice Recorder", desc: "Record audio from your microphone directly in the browser." }
+      { name: "MP3 Compressor", desc: "Reduce audio file sizes by adjusting bitrate settings.", path: "mp3-compressor" },
+      { name: "Audio Converter", desc: "Convert audio formats like WAV, M4A, FLAC, and OGG to MP3.", path: "audio-converter" },
+      { name: "Audio Trimmer", desc: "Trim audio tracks to create ringtones or shorten clips.", path: "audio-trimmer" },
+      { name: "Merge Audio Files", desc: "Combine multiple audio tracks into a continuous mix.", path: "merge-audio-files" },
+      { name: "Change Audio Speed", desc: "Adjust the tempo or pitch of an audio file.", path: "change-audio-speed" },
+      { name: "Volume Booster", desc: "Safely increase the volume level of quiet audio files.", path: "volume-booster" },
+      { name: "Voice Recorder", desc: "Record audio from your microphone directly in the browser.", path: "voice-recorder" }
     ]
   },
   "file-tools": {
     title: "File Tools",
     icon: "folder_open",
     tools: [
-      { name: "ZIP File Creator", desc: "Compress files and folders into standard ZIP archives." },
-      { name: "ZIP Extractor", desc: "Decompress ZIP archives to extract files." },
-      { name: "RAR Extractor", desc: "Extract files from RAR compressed archives locally." },
-      { name: "7Z Extractor", desc: "Unpack 7-Zip high-compression archive files." },
-      { name: "File Size Analyzer", desc: "Inspect and visualize the contents of your files." },
-      { name: "Duplicate File Detector", desc: "Find identical files based on fast hash matching." },
-      { name: "Folder Size Calculator", desc: "Compute total size of dropped folders." },
-      { name: "Hash Generator", desc: "Calculate MD5, SHA-1, SHA-256, and SHA-512 values for files." }
+      { name: "ZIP File Creator", desc: "Compress files and folders into standard ZIP archives.", path: "zip-file-creator" },
+      { name: "ZIP Extractor", desc: "Decompress ZIP archives to extract files.", path: "zip-extractor" },
+      { name: "RAR Extractor", desc: "Extract files from RAR compressed archives locally.", path: "rar-extractor" },
+      { name: "7Z Extractor", desc: "Unpack 7-Zip high-compression archive files.", path: "7z-extractor" },
+      { name: "File Size Analyzer", desc: "Inspect and visualize the contents of your files.", path: "file-size-analyzer" },
+      { name: "Duplicate File Detector", desc: "Find identical files based on fast hash matching.", path: "duplicate-file-detector" },
+      { name: "Folder Size Calculator", desc: "Compute total size of dropped folders.", path: "folder-size-calculator" },
+      { name: "Hash Generator", desc: "Calculate MD5, SHA-1, SHA-256, and SHA-512 values for files.", path: "hash-generator" }
     ]
   },
   "text-tools": {
     title: "Text Tools",
     icon: "description",
     tools: [
-      { name: "Word Counter", desc: "Count words, characters, sentences, and paragraphs in real time." },
-      { name: "Character Counter", desc: "Detailed character counting including with/without spaces." },
-      { name: "Remove Duplicate Lines", desc: "Clean up lists or code by removing duplicated lines." },
-      { name: "Case Converter", desc: "Switch text between UPPERCASE, lowercase, Title Case, etc." },
-      { name: "Find & Replace", desc: "Locate and replace matching text snippets or regex patterns." },
-      { name: "Text Sorter", desc: "Sort lines alphabetically, numerically, or by length." },
-      { name: "Random Text Generator", desc: "Create randomized strings or test data." },
-      { name: "Markdown Editor", desc: "Write markdown and preview rendered HTML side by side." },
-      { name: "JSON Formatter", desc: "Beautify, validate, and minify JSON data." },
-      { name: "XML Formatter", desc: "Format XML elements with clean hierarchy indentation." },
-      { name: "HTML Formatter", desc: "Beautify and clean up raw HTML source code." },
-      { name: "CSS Minifier", desc: "Compress CSS stylesheets to optimize loading speed." },
-      { name: "JS Minifier", desc: "Optimize and compress JavaScript code structures." },
-      { name: "Base64 Encoder/Decoder", desc: "Convert text or files to and from Base64 encoding." },
-      { name: "URL Encoder/Decoder", desc: "Encode or decode strings for safe URL formatting." }
+      { name: "Word Counter", desc: "Count words, characters, sentences, and paragraphs in real time.", path: "word-counter" },
+      { name: "Character Counter", desc: "Detailed character counting including with/without spaces.", path: "character-counter" },
+      { name: "Remove Duplicate Lines", desc: "Clean up lists or code by removing duplicated lines.", path: "remove-duplicate-lines" },
+      { name: "Case Converter", desc: "Switch text between UPPERCASE, lowercase, Title Case, etc.", path: "case-converter" },
+      { name: "Find & Replace", desc: "Locate and replace matching text snippets or regex patterns.", path: "find-and-replace" },
+      { name: "Text Sorter", desc: "Sort lines alphabetically, numerically, or by length.", path: "text-sorter" },
+      { name: "Random Text Generator", desc: "Create randomized strings or test data.", path: "random-text-generator" },
+      { name: "Markdown Editor", desc: "Write markdown and preview rendered HTML side by side.", path: "markdown-editor" },
+      { name: "JSON Formatter", desc: "Beautify, validate, and minify JSON data.", path: "json-formatter" },
+      { name: "XML Formatter", desc: "Format XML elements with clean hierarchy indentation.", path: "xml-formatter" },
+      { name: "HTML Formatter", desc: "Beautify and clean up raw HTML source code.", path: "html-formatter" },
+      { name: "CSS Minifier", desc: "Compress CSS stylesheets to optimize loading speed.", path: "css-minifier" },
+      { name: "JS Minifier", desc: "Optimize and compress JavaScript code structures.", path: "javascript-minifier" },
+      { name: "Base64 Encoder/Decoder", desc: "Convert text or files to and from Base64 encoding.", path: "base64-encoder-decoder" },
+      { name: "URL Encoder/Decoder", desc: "Encode or decode strings for safe URL formatting.", path: "url-encoder-decoder" }
     ]
   },
   "developer-tools": {
     title: "Developer Tools",
     icon: "terminal",
     tools: [
-      { name: "JWT Decoder", desc: "Decode JSON Web Tokens to inspect payloads without verifying secrets." },
-      { name: "UUID Generator", desc: "Generate secure UUID v4 strings instantly." },
-      { name: "QR Code Generator", desc: "Convert text, links, or contacts into custom QR codes." },
-      { name: "QR Code Scanner", desc: "Read QR codes using your webcam or from uploaded images." },
-      { name: "Barcode Generator", desc: "Generate standardized barcodes for products or tracking." },
-      { name: "Password Generator", desc: "Create strong, customizable, cryptographically secure passwords." },
-      { name: "Color Picker", desc: "Create color palettes and convert between HEX, RGB, HSL." },
-      { name: "Gradient Generator", desc: "Design beautiful CSS gradients and copy code." },
-      { name: "Regex Tester", desc: "Write and validate regular expressions against sample text." },
-      { name: "Cron Expression Generator", desc: "Convert cron syntax to readable text description and vice-versa." },
-      { name: "Timestamp Converter", desc: "Translate date strings to Unix timestamps." },
-      { name: "Unix Time Converter", desc: "Convert Unix epoch timestamps to human-readable dates." },
-      { name: "Lorem Ipsum Generator", desc: "Generate dummy text for layouts and placeholder designs." }
+      { name: "JWT Decoder", desc: "Decode JSON Web Tokens to inspect payloads without verifying secrets.", path: "jwt-decoder" },
+      { name: "UUID Generator", desc: "Generate secure UUID v4 strings instantly.", path: "uuid-generator" },
+      { name: "QR Code Generator", desc: "Convert text, links, or contacts into custom QR codes.", path: "qr-code-generator" },
+      { name: "QR Code Scanner", desc: "Read QR codes using your webcam or from uploaded images.", path: "qr-code-scanner" },
+      { name: "Barcode Generator", desc: "Generate standardized barcodes for products or tracking.", path: "barcode-generator" },
+      { name: "Password Generator", desc: "Create strong, customizable, cryptographically secure passwords.", path: "password-generator" },
+      { name: "Color Picker", desc: "Create color palettes and convert between HEX, RGB, HSL.", path: "color-picker" },
+      { name: "Gradient Generator", desc: "Design beautiful CSS gradients and copy code.", path: "gradient-generator" },
+      { name: "Regex Tester", desc: "Write and validate regular expressions against sample text.", path: "regex-tester" },
+      { name: "Cron Expression Generator", desc: "Convert cron syntax to readable text description and vice-versa.", path: "cron-expression-generator" },
+      { name: "Timestamp Converter", desc: "Translate date strings to Unix timestamps.", path: "timestamp-converter" },
+      { name: "Unix Time Converter", desc: "Convert Unix epoch timestamps to human-readable dates.", path: "unix-time-converter" },
+      { name: "Lorem Ipsum Generator", desc: "Generate dummy text for layouts and placeholder designs.", path: "lorem-ipsum-generator" }
     ]
   },
   "utility-tools": {
     title: "Utility Tools",
     icon: "construction",
     tools: [
-      { name: "Unit Converter", desc: "Convert length, mass, temperature, area, and volume values." },
-      { name: "Currency Converter", desc: "Convert currencies using current exchange rates." },
-      { name: "Age Calculator", desc: "Calculate your exact age in years, months, days, and seconds." },
-      { name: "BMI Calculator", desc: "Calculate Body Mass Index based on height and weight inputs." },
-      { name: "Percentage Calculator", desc: "Perform common percentage math operations quickly." },
-      { name: "EMI Calculator", desc: "Calculate Equated Monthly Installments for loans." },
-      { name: "Loan Calculator", desc: "Calculate total loan costs, interest fees, and payments." },
-      { name: "GST Calculator", desc: "Calculate Goods and Services Tax added or subtracted." },
-      { name: "Time Zone Converter", desc: "Convert times between different global zones." },
-      { name: "Stopwatch", desc: "Track precise elapsed times with lap recording features." }
+      { name: "Unit Converter", desc: "Convert length, mass, temperature, area, and volume values.", path: "unit-converter" },
+      { name: "Currency Converter", desc: "Convert currencies using current exchange rates.", path: "currency-converter" },
+      { name: "Age Calculator", desc: "Calculate your exact age in years, months, days, and seconds.", path: "age-calculator" },
+      { name: "BMI Calculator", desc: "Calculate Body Mass Index based on height and weight inputs.", path: "bmi-calculator" },
+      { name: "Percentage Calculator", desc: "Perform common percentage math operations quickly.", path: "percentage-calculator" },
+      { name: "EMI Calculator", desc: "Calculate Equated Monthly Installments for loans.", path: "emi-calculator" },
+      { name: "Loan Calculator", desc: "Calculate total loan costs, interest fees, and payments.", path: "loan-calculator" },
+      { name: "GST Calculator", desc: "Calculate Goods and Services Tax added or subtracted.", path: "gst-calculator" },
+      { name: "Time Zone Converter", desc: "Convert times between different global zones.", path: "time-zone-converter" },
+      { name: "Stopwatch", desc: "Track precise elapsed times with lap recording features.", path: "stopwatch" }
     ]
   }
 };
