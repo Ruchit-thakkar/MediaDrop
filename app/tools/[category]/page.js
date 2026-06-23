@@ -32,18 +32,18 @@ const toolsByCategory = {
     title: "Video Tools",
     icon: "movie",
     tools: [
-      { name: "Video Compressor", desc: "Reduce video file sizes while retaining optimal resolution." },
-      { name: "Video Converter", desc: "Convert video files into alternative formats." },
-      { name: "Video Trimmer", desc: "Cut specific parts of a video to shorten its duration." },
-      { name: "Video Cutter", desc: "Split video files into multiple segments." },
-      { name: "Video Merger", desc: "Stitch together multiple video files into a single video." },
-      { name: "Extract Audio from Video", desc: "Strip the audio track from a video and save as MP3." },
-      { name: "Change Video Speed", desc: "Speed up or slow down video playback." },
-      { name: "Reverse Video", desc: "Play video clips backward." },
-      { name: "Mute Video", desc: "Remove all audio streams from a video file." },
-      { name: "Create GIF from Video", desc: "Convert selected video clips into animated GIFs." },
-      { name: "Rotate Video", desc: "Rotate video orientation by 90, 180, or 270 degrees." },
-      { name: "Resize Video", desc: "Change the aspect ratio or resolution of your video." }
+      { name: "Video Compressor", desc: "Reduce video file sizes while retaining optimal resolution.", path: "video-compressor" },
+      { name: "Video Converter", desc: "Convert video files into alternative formats.", path: "video-converter" },
+      { name: "Video Trimmer", desc: "Cut specific parts of a video to shorten its duration.", path: "video-trimmer" },
+      { name: "Video Cutter", desc: "Split video files into multiple segments.", path: "video-cutter" },
+      { name: "Video Merger", desc: "Stitch together multiple video files into a single video.", path: "video-merger" },
+      { name: "Extract Audio from Video", desc: "Strip the audio track from a video and save as MP3.", path: "extract-audio-from-video" },
+      { name: "Change Video Speed", desc: "Speed up or slow down video playback.", path: "change-video-speed" },
+      { name: "Reverse Video", desc: "Play video clips backward.", path: "reverse-video" },
+      { name: "Mute Video", desc: "Remove all audio streams from a video file.", path: "mute-video" },
+      { name: "Create GIF from Video", desc: "Convert selected video clips into animated GIFs.", path: "create-gif-from-video" },
+      { name: "Rotate Video", desc: "Rotate video orientation by 90, 180, or 270 degrees.", path: "rotate-video" },
+      { name: "Resize Video", desc: "Change the aspect ratio or resolution of your video.", path: "resize-video" }
     ]
   },
   "audio-tools": {
