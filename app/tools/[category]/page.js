@@ -11,21 +11,21 @@ const toolsByCategory = {
     title: "Image Tools",
     icon: "image",
     tools: [
-      { name: "Image Compressor", desc: "Reduce image file size without losing quality." },
-      { name: "Background Remover", desc: "Automatically extract subjects from images." },
-      { name: "Image Resizer", desc: "Change image dimensions to specific widths or heights." },
-      { name: "Crop Image", desc: "Selectively trim the outer edges of an image." },
-      { name: "Rotate Image", desc: "Rotate images clockwise or counter-clockwise." },
-      { name: "Flip Image", desc: "Mirror images horizontally or vertically." },
-      { name: "Convert JPG ↔ PNG ↔ WEBP ↔ AVIF", desc: "Convert images to different modern file formats." },
-      { name: "HEIC to JPG", desc: "Convert Apple HEIC photos to compatible JPGs." },
-      { name: "SVG Converter", desc: "Convert vector SVG graphics to raster image formats." },
-      { name: "GIF Maker", desc: "Combine multiple images to create animated GIFs." },
-      { name: "Remove Image Metadata (EXIF)", desc: "Strip private GPS location and camera details from files." },
-      { name: "Watermark Image", desc: "Overlay text or image watermarks onto your pictures." },
-      { name: "Image Color Picker", desc: "Extract precise hex/rgb color values from any pixel." },
-      { name: "Image Upscaler", desc: "Increase image resolution using client-side processing." },
-      { name: "Image to ASCII Art", desc: "Convert pictures into text-based character art." }
+      { name: "Image Compressor", desc: "Reduce image file size without losing quality.", path: "image-compressor" },
+      { name: "Background Remover", desc: "Automatically extract subjects from images.", path: "background-remover" },
+      { name: "Image Resizer", desc: "Change image dimensions to specific widths or heights.", path: "image-resizer" },
+      { name: "Crop Image", desc: "Selectively trim the outer edges of an image.", path: "crop-image" },
+      { name: "Rotate Image", desc: "Rotate images clockwise or counter-clockwise.", path: "rotate-image" },
+      { name: "Flip Image", desc: "Mirror images horizontally or vertically.", path: "flip-image" },
+      { name: "Convert JPG ↔ PNG ↔ WEBP ↔ AVIF", desc: "Convert images to different modern file formats.", path: "image-format-converter" },
+      { name: "HEIC to JPG", desc: "Convert Apple HEIC photos to compatible JPGs.", path: "heic-to-jpg-converter" },
+      { name: "SVG Converter", desc: "Convert vector SVG graphics to raster image formats.", path: "svg-converter" },
+      { name: "GIF Maker", desc: "Combine multiple images to create animated GIFs.", path: "gif-maker" },
+      { name: "Remove Image Metadata (EXIF)", desc: "Strip private GPS location and camera details from files.", path: "remove-image-metadata" },
+      { name: "Watermark Image", desc: "Overlay text or image watermarks onto your pictures.", path: "watermark-image" },
+      { name: "Image Color Picker", desc: "Extract precise hex/rgb color values from any pixel.", path: "image-color-picker" },
+      { name: "Image Upscaler", desc: "Increase image resolution using client-side processing.", path: "image-upscaler" },
+      { name: "Image to ASCII Art", desc: "Convert pictures into text-based character art.", path: "image-to-ascii-art" }
     ]
   },
   "video-tools": {
@@ -221,27 +221,55 @@ export default function CategoryPage() {
           </p>
         </section>
 
-        {/* Tools Placeholder Grid */}
+        {/* Tools Grid */}
         <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-fade-in">
-          {categoryData.tools.map((tool, idx) => (
-            <div
-              key={idx}
-              className="premium-card rounded-3xl p-6 border border-white/5 flex flex-col gap-3 group relative select-none"
-            >
-              {/* Decorative subtle ambient card glow */}
-              <div className="absolute top-0 right-0 w-24 h-24 bg-purple-500/[0.02] rounded-full blur-[20px] pointer-events-none transition-opacity duration-300 group-hover:opacity-100"></div>
+          {categoryData.tools.map((tool, idx) => {
+            const cardContent = (
+              <>
+                {/* Decorative subtle ambient card glow */}
+                <div className="absolute top-0 right-0 w-24 h-24 bg-purple-500/[0.02] rounded-full blur-[20px] pointer-events-none transition-opacity duration-300 group-hover:opacity-100"></div>
 
-              <div className="flex items-center justify-between">
-                <h3 className="text-zinc-900 dark:text-white font-extrabold text-sm tracking-tight">{tool.name}</h3>
-                <span className="text-[8px] font-extrabold text-zinc-500 dark:text-zinc-400 uppercase tracking-widest bg-black/5 dark:bg-white/5 px-2 py-0.5 rounded-full border border-black/5 dark:border-white/5 shrink-0 select-none">
-                  Placeholder
-                </span>
+                <div className="flex items-center justify-between">
+                  <h3 className="text-zinc-900 dark:text-white font-extrabold text-sm tracking-tight">{tool.name}</h3>
+                  {!tool.path && (
+                    <span className="text-[8px] font-extrabold text-zinc-500 dark:text-zinc-400 uppercase tracking-widest bg-black/5 dark:bg-white/5 px-2 py-0.5 rounded-full border border-black/5 dark:border-white/5 shrink-0 select-none">
+                      Placeholder
+                    </span>
+                  )}
+                </div>
+                <p className="text-zinc-500 dark:text-zinc-400 text-xs font-semibold leading-relaxed">
+                  {tool.desc}
+                </p>
+                {tool.path && (
+                  <div className="mt-auto pt-4 border-t border-border-subtle flex items-center gap-1 text-[9px] font-extrabold uppercase tracking-wider text-zinc-400 dark:text-zinc-500 group-hover:text-purple-500 dark:group-hover:text-purple-400 transition-colors">
+                    Open Tool
+                    <span className="material-symbols-outlined text-[12px] ml-0.5">arrow_forward</span>
+                  </div>
+                )}
+              </>
+            );
+
+            if (tool.path) {
+              return (
+                <Link
+                  key={idx}
+                  href={`/tools/${category}/${tool.path}`}
+                  className="premium-card premium-glow-hover rounded-3xl p-6 border border-white/5 flex flex-col gap-3 group relative select-none cursor-pointer"
+                >
+                  {cardContent}
+                </Link>
+              );
+            }
+
+            return (
+              <div
+                key={idx}
+                className="premium-card rounded-3xl p-6 border border-white/5 flex flex-col gap-3 group relative select-none"
+              >
+                {cardContent}
               </div>
-              <p className="text-zinc-500 dark:text-zinc-400 text-xs font-semibold leading-relaxed">
-                {tool.desc}
-              </p>
-            </div>
-          ))}
+            );
+          })}
         </section>
 
       </main>
