@@ -14,6 +14,10 @@ export default function ExtractAudioPage() {
   // Settings
   const [targetFormat, setTargetFormat] = useState("wav"); // wav, webm
 
+  const videoRef = useRef(null);
+  const recorderRef = useRef(null);
+  const animationFrameRef = useRef(null);
+
   // Clean up
   useEffect(() => {
     return () => {
@@ -36,10 +40,27 @@ export default function ExtractAudioPage() {
   };
 
   const handleReset = () => {
+    if (processing) {
+      handleCancel();
+    }
     setFile(null);
     setPreviewUrl(null);
     setAudioUrl(null);
     setAudioSize(null);
+    setProgress(0);
+  };
+
+  const handleCancel = () => {
+    if (recorderRef.current && recorderRef.current.state !== "inactive") {
+      recorderRef.current.stop();
+    }
+    if (animationFrameRef.current) {
+      cancelAnimationFrame(animationFrameRef.current);
+    }
+    if (videoRef.current) {
+      videoRef.current.pause();
+    }
+    setProcessing(false);
     setProgress(0);
   };
 
@@ -64,7 +85,7 @@ export default function ExtractAudioPage() {
       pos += 4;
     };
 
-    setUint32(0x46464f52);                         // "RIFF"
+    setUint32(0x46464952);                         // "RIFF" (Fixed: 0x46464f52 was "ROFF")
     setUint32(length - 8);                         // file length - 8
     setUint32(0x45564157);                         // "WAVE"
 
@@ -119,52 +140,82 @@ export default function ExtractAudioPage() {
       setProgress(75);
 
       if (targetFormat === "wav") {
-        // Step 3: Encode to WAV
+        // Step 3: Encode to WAV (Instant offline process)
         const wavBlob = bufferToWav(audioBuffer);
         setAudioUrl(URL.createObjectURL(wavBlob));
         setAudioSize(wavBlob.size);
+        setProgress(100);
+        setProcessing(false);
       } else {
-        // Encode to WebM audio stream using MediaStreamAudioDestinationNode and MediaRecorder
-        const offlineCtx = new OfflineAudioContext(
-          audioBuffer.numberOfChannels,
-          audioBuffer.length,
-          audioBuffer.sampleRate
-        );
+        // Step 3: Real-time recording for compressed WebM/OGG format
+        const video = videoRef.current;
+        if (!video) {
+          throw new Error("Video element preview is not ready.");
+        }
         
-        const bufferSource = offlineCtx.createBufferSource();
-        bufferSource.buffer = audioBuffer;
+        video.currentTime = 0;
+        video.muted = true;
 
-        const mediaDest = offlineCtx.createMediaStreamDestination();
-        bufferSource.connect(mediaDest);
-        bufferSource.start();
+        let audioTracks = [];
+        try {
+          const originalStream = video.captureStream ? video.captureStream() : (video.mozCaptureStream ? video.mozCaptureStream() : null);
+          if (originalStream) {
+            audioTracks = originalStream.getAudioTracks();
+          }
+        } catch (e) {
+          console.warn("Fallback to Web Audio API for stream capture:", e);
+        }
 
-        const recorder = new MediaRecorder(mediaDest.stream, {
-          mimeType: MediaRecorder.isTypeSupported("audio/webm") ? "audio/webm" : ""
-        });
+        let combinedStream;
+        if (audioTracks.length > 0) {
+          combinedStream = new MediaStream([audioTracks[0]]);
+        } else {
+          const sourceNode = audioCtx.createMediaElementSource(video);
+          const destNode = audioCtx.createMediaStreamDestination();
+          sourceNode.connect(destNode);
+          combinedStream = destNode.stream;
+        }
 
+        const mimeType = MediaRecorder.isTypeSupported("audio/webm") ? "audio/webm" : "audio/ogg";
         const chunks = [];
+        const recorder = new MediaRecorder(combinedStream, { mimeType });
+        recorderRef.current = recorder;
+
         recorder.ondataavailable = (e) => {
           if (e.data && e.data.size > 0) chunks.push(e.data);
         };
 
-        const recordingFinished = new Promise((resolve) => {
-          recorder.onstop = () => {
-            const blob = new Blob(chunks, { type: "audio/webm" });
-            resolve(blob);
-          };
-        });
+        recorder.onstop = () => {
+          const webmBlob = new Blob(chunks, { type: mimeType });
+          setAudioUrl(URL.createObjectURL(webmBlob));
+          setAudioSize(webmBlob.size);
+          setProcessing(false);
+          setProgress(100);
+        };
 
+        video.play();
         recorder.start();
-        await offlineCtx.startRendering();
-        recorder.stop();
 
-        const webmBlob = await recordingFinished;
-        setAudioUrl(URL.createObjectURL(webmBlob));
-        setAudioSize(webmBlob.size);
+        const updateProgress = () => {
+          if (video.paused || video.ended) {
+            if (recorder.state !== "inactive") recorder.stop();
+            return;
+          }
+          const currentProgress = Math.min(99, Math.round((video.currentTime / video.duration) * 100));
+          setProgress(currentProgress);
+          animationFrameRef.current = requestAnimationFrame(updateProgress);
+        };
+
+        video.onplay = () => {
+          updateProgress();
+        };
+
+        video.onended = () => {
+          if (recorder.state !== "inactive") {
+            recorder.stop();
+          }
+        };
       }
-
-      setProgress(100);
-      setProcessing(false);
     } catch (err) {
       console.error("Audio extraction failed:", err);
       alert("Failed to extract audio track. Ensure the video file contains a valid audio stream.");
@@ -250,6 +301,7 @@ export default function ExtractAudioPage() {
           </div>
           <div className="p-4 flex items-center justify-center flex-grow bg-zinc-950/40 overflow-hidden">
             <video
+              ref={videoRef}
               src={previewUrl}
               controls
               className="max-h-full max-w-full object-contain rounded shadow-sm"
